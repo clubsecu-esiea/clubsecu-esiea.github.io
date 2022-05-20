@@ -14,12 +14,12 @@
     
     
         <item>
-        <title>[HackTheBox Cyber Apocalypse 2022 - pwn] pwn - Once for all</title>
+        <title>[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all</title>
         <link>https://clubsecu-esiea.github.io/posts/onceandforall/</link>
         <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
         
         <guid>https://clubsecu-esiea.github.io/posts/onceandforall/</guid>
-        <description>ESIEA security club https://clubsecu-esiea.github.io/posts/onceandforall/ -&lt;p&gt;Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.&lt;/p&gt;
+        <description>ESIEA security club https://clubsecu-esiea.github.io/posts/onceandforall/ -&lt;p&gt;Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.&lt;/p&gt;
 &lt;h1 id=&#34;reverse-engineering&#34;&gt;Reverse engineering&lt;/h1&gt;
 &lt;p&gt;All the snippets of pseudo-code are issued by &lt;a href=&#34;https://hex-rays.com/ida-free/&#34;&gt;IDA freeware&lt;/a&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__cdecl&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;argv, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;envp)
