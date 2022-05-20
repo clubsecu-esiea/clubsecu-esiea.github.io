@@ -10,16 +10,14 @@
 <meta name="google-site-verification" content="">
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 <meta content="telephone=no" name="format-detection">
-<meta name="description" content="">
+<meta name="description" content="Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.">
 <meta name="renderer" content="webkit">
 <meta name="theme-color" content="#ffffff">
 
 
 
 <meta property="og:title" content="[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all" />
-<meta property="og:description" content="Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.
-Reverse engineering All the snippets of pseudo-code are issued by IDA freeware:
-int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [rsp&#43;18h] [rbp-8h] BYREF  int i; // [rsp&#43;1Ch] [rbp-4h]  for ( i = 0; i &lt;= 49; &#43;&#43;i ) { puts(s); printf(&amp;unk_1310); __isoc99_scanf(&amp;unk_13C8, &amp;v4); puts(s); switch ( v4 ) { case 1: small_alloc(s); break; case 2: fix(s); break; case 3: examine(s); break; case 4: savebig(s); break; case 5: exit(0); default: puts(&#34;[-] Invalid choice!" />
+<meta property="og:description" content="Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://clubsecu-esiea.github.io/posts/onceandforall/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-05-19T00:00:00+00:00" />
@@ -32,9 +30,7 @@ int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [r
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all"/>
-<meta name="twitter:description" content="Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.
-Reverse engineering All the snippets of pseudo-code are issued by IDA freeware:
-int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [rsp&#43;18h] [rbp-8h] BYREF  int i; // [rsp&#43;1Ch] [rbp-4h]  for ( i = 0; i &lt;= 49; &#43;&#43;i ) { puts(s); printf(&amp;unk_1310); __isoc99_scanf(&amp;unk_13C8, &amp;v4); puts(s); switch ( v4 ) { case 1: small_alloc(s); break; case 2: fix(s); break; case 3: examine(s); break; case 4: savebig(s); break; case 5: exit(0); default: puts(&#34;[-] Invalid choice!"/>
+<meta name="twitter:description" content="Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin."/>
 
 
 
@@ -93,24 +89,6 @@ int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [r
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script src="/vendor/js/md5.min.js"></script>
-<script>
-  var gitalk = new Gitalk({
-  clientID: '',
-  clientSecret: '',
-  repo: '',
-  owner: '',
-  admin: [''],
-  id: md5(location.pathname),
-  distractionFreeMode: 'false'
-  });
-  window.onload = function () {
-        gitalk.render('gitalk-container')
-  }
-</script>
-
 
 
 
@@ -140,32 +118,12 @@ int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [r
             
             
             
-            
-            
-            <a class="a-block nav-link-item false" href="/posts/about/">
-                About us
-            </a>
-            
-        
-            
-            
-            
                 
             
             
             
             <a class="a-block nav-link-item active" href="/posts">
-                Archive
-            </a>
-            
-        
-            
-            
-            
-            
-            
-            <a class="a-block nav-link-item false" href="/categories">
-                Categories
+                Posts
             </a>
             
         
@@ -176,6 +134,16 @@ int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [r
             
             <a class="a-block nav-link-item false" href="/tags">
                 Tags
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts/about/">
+                About us
             </a>
             
         
@@ -394,32 +362,12 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 
                 
-                
-                
-                <a class="a-block drawer-menu-item false" href="/posts/about/">
-                    About us
-                </a>
-                
-            
-                
-                
-                
                     
                 
                 
                 
                 <a class="a-block drawer-menu-item active" href="/posts">
-                    Archive
-                </a>
-                
-            
-                
-                
-                
-                
-                
-                <a class="a-block drawer-menu-item false" href="/categories">
-                    Categories
+                    Posts
                 </a>
                 
             
@@ -430,6 +378,16 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 
                 <a class="a-block drawer-menu-item false" href="/tags">
                     Tags
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts/about/">
+                    About us
                 </a>
                 
             
@@ -652,6 +610,10 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                 <div class="post-title">
                     [HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all
                     
+                    <div class="post-subtitle">
+                        Once and for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.
+                    </div>
+                    
                     <div class="post-meta">
                         
                         <time itemprop="datePublished">
@@ -659,10 +621,6 @@ Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopene
                         </time>
                         
 
-                        
-                            <i class="material-icons" style="">folder</i>
-                                <a href="/categories/pwn">pwn</a>
-                                &nbsp;
                         
 
                         
@@ -1402,18 +1360,10 @@ HTB{m4y_th3_f0rc3_b3_w1th_B0Nn13!}
             </nav>
             <div class="post-comment-wrapper">
                 
-
-
-<div id="gitalk-container"></div>
-
-
-
-
-
-
-
-
-
+                <p style="opacity: 0.6" align="center">
+                    <small>Comments Disabled.</small>
+                </p>
+                
             </div>
         </div>
     </div>
