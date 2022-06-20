@@ -1,32 +1,90 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
   <url>
-    <loc>https://clubsecu-esiea.github.io/posts/onceandforall/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/posts/about/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/tags/advanced/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/tags/contacts/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/tags/ctf/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/tags/hackthebox/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/posts/</loc>
-    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://clubsecu-esiea.github.io/tags/</loc>
+    <loc>http://clubsecuesiea.github.io/posts/oracles_apprentice/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/categories/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/categories/crypto/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/ctf/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/heroctf/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/medium/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/posts/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/rsa/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/</loc>
+    <lastmod>2022-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/posts/onceforall/</loc>
     <lastmod>2022-05-19T00:00:00+00:00</lastmod>
   </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/posts/about/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/advanced/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/contacts/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/tags/hackthebox/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/categories/misc/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://clubsecuesiea.github.io/categories/pwn/</loc>
+    <lastmod>2022-05-19T00:00:00+00:00</lastmod>
+  </url>
+  
 </urlset>

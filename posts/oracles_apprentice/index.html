@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html><head>
+<title>[HeroCTF v4 - crypto] How (not) to make a crypto challenge</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="[HeroCTF v4 - crypto] How (not) to make a crypto challenge" />
+<meta property="og:description" content="# The oracle&#39;s apprentice Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She&#39;s new to the job so if she forgets anything... you&#39;ll just have to deal with it. Good luck ! `Format : Hero{flag}` `Author : Alol` (NB: that&#39;s me !) The premise As it turns out I fucked up. The 4th edition of the HeroCTF is about to end after a weekend of everything going surprisingly well." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://clubsecuesiea.github.io/posts/oracles_apprentice/" />
+<meta property="article:published_time" content="2022-05-29T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-05-29T00:00:00+00:00" /><meta property="og:site_name" content="ESIEA security club" />
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[HeroCTF v4 - crypto] How (not) to make a crypto challenge"/>
+<meta name="twitter:description" content="# The oracle&#39;s apprentice Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She&#39;s new to the job so if she forgets anything... you&#39;ll just have to deal with it. Good luck ! `Format : Hero{flag}` `Author : Alol` (NB: that&#39;s me !) The premise As it turns out I fucked up. The 4th edition of the HeroCTF is about to end after a weekend of everything going surprisingly well."/>
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="http://clubsecuesiea.github.io/scss/journal.min.d8d9f81b896882733c41896750adbefbf9319ca02ccccefd461650898975c3af.css" integrity="sha256-2Nn4G4lognM8QYlnUK2&#43;&#43;/kxnKAszM79RhZQiYl1w68=" media="screen">
+
+
+
+<link rel="stylesheet" href="http://clubsecuesiea.github.io/scss/dark-mode.min.60f86847da9fc0724177ccfd0bf7c5997b0b41f1e58d5a293cfb3723c497c422.css" integrity="sha256-YPhoR9qfwHJBd8z9C/fFmXsLQfHljVopPPs3I8SXxCI=" media="screen">
+
+
+<script src="/vendor/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Fira+Mono|Material+Icons");
+</script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+
+
+  <script src="/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://clubsecuesiea.github.io/">
+    
+        <div class="nav-title">
+            ESIEA security club
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts/about/">
+                About us
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Beerware shit
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#the-premise" onclick="onNavClick(`#the-premise-nav`)" id="the-premise-nav">
+									The premise
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n1--n-th-root-attack-small-e" onclick="onNavClick(`#unintended-n1--n-th-root-attack-small-e-nav`)" id="unintended-n1--n-th-root-attack-small-e-nav">
+									Unintended n°1 : n-th root attack (small e)
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n2--self-blinding" onclick="onNavClick(`#unintended-n2--self-blinding-nav`)" id="unintended-n2--self-blinding-nav">
+									Unintended n°2 : “self”-blinding
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n3--modular-arithmetic" onclick="onNavClick(`#unintended-n3--modular-arithmetic-nav`)" id="unintended-n3--modular-arithmetic-nav">
+									Unintended n°3 : modular arithmetic
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#the-intended-way-" onclick="onNavClick(`#the-intended-way--nav`)" id="the-intended-way--nav">
+									The intended way :
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#step-1-recover-n" onclick="onNavClick(`#step-1-recover-n-nav`)" id="step-1-recover-n-nav">
+									Step 1: recover n
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#step-2-recover-e" onclick="onNavClick(`#step-2-recover-e-nav`)" id="step-2-recover-e-nav">
+									Step 2: recover e
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#step-3-recover-the-flag" onclick="onNavClick(`#step-3-recover-the-flag-nav`)" id="step-3-recover-the-flag-nav">
+									Step 3: recover the flag
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#to-conclude" onclick="onNavClick(`#to-conclude-nav`)" id="to-conclude-nav">
+									To conclude
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts/about/">
+                    About us
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#the-premise" onclick="onNavClick(`#the-premise-nav`)" id="the-premise-nav">
+									The premise
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n1--n-th-root-attack-small-e" onclick="onNavClick(`#unintended-n1--n-th-root-attack-small-e-nav`)" id="unintended-n1--n-th-root-attack-small-e-nav">
+									Unintended n°1 : n-th root attack (small e)
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n2--self-blinding" onclick="onNavClick(`#unintended-n2--self-blinding-nav`)" id="unintended-n2--self-blinding-nav">
+									Unintended n°2 : “self”-blinding
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#unintended-n3--modular-arithmetic" onclick="onNavClick(`#unintended-n3--modular-arithmetic-nav`)" id="unintended-n3--modular-arithmetic-nav">
+									Unintended n°3 : modular arithmetic
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#the-intended-way-" onclick="onNavClick(`#the-intended-way--nav`)" id="the-intended-way--nav">
+									The intended way :
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#step-1-recover-n" onclick="onNavClick(`#step-1-recover-n-nav`)" id="step-1-recover-n-nav">
+									Step 1: recover n
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#step-2-recover-e" onclick="onNavClick(`#step-2-recover-e-nav`)" id="step-2-recover-e-nav">
+									Step 2: recover e
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#step-3-recover-the-flag" onclick="onNavClick(`#step-3-recover-the-flag-nav`)" id="step-3-recover-the-flag-nav">
+									Step 3: recover the flag
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+							
+								</ul>
+							
+								</ul>
+							
+						
+						
+						
+							<li>
+								<a href="#to-conclude" onclick="onNavClick(`#to-conclude-nav`)" id="to-conclude-nav">
+									To conclude
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://clubsecuesiea.github.io/">
+            ESIEA security club
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://clubsecuesiea.github.io/">
+        <div class="single-column-header-title">ESIEA security club</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    [HeroCTF v4 - crypto] How (not) to make a crypto challenge
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2022-05-29 00:00
+                        </time>
+                        
+
+                        
+                            <i class="material-icons" style="">folder</i>
+                                <a href="/categories/crypto">crypto</a>
+                                &nbsp;
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/ctf">ctf</a>
+                                &nbsp;
+                            
+                                <a href="/tags/heroctf">HeroCTF</a>
+                                &nbsp;
+                            
+                                <a href="/tags/medium">medium</a>
+                                &nbsp;
+                            
+                                <a href="/tags/rsa">rsa</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <pre><code># The oracle's apprentice
+
+Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She's new to the job so if she forgets anything... you'll just have to deal with it.
+
+Good luck !
+
+`Format : Hero{flag}`
+`Author : Alol` (NB: that's me !)
+</code></pre><h1 id="the-premise">The premise</h1>
+<p>As it turns out I fucked up. The 4th edition of the HeroCTF is about to end after a weekend of everything going surprisingly well. The infrastructure didn&rsquo;t crash, we didn&rsquo;t get DDOSed, we didn&rsquo;t have to deal with cryptominers and everybody generally had a great time. I was the creator of the OSINT challenges and a crypto(graphy) challenge : <code>The oracle's apprentice</code>, the subject of this article.</p>
+<p>More than just providing a write-up to the challenge this blogpost will also detail the <em>several</em> unintended ways the challenge could be solved. These &ldquo;unintendeds&rdquo; are actually textbook RSA vulnerabilities, which makes this article accessible to novices and my shame even greater. If you&rsquo;re only interested in the (intended) solution to this challenge you can jump right to <code>The intended way </code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python3</span>
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getStrongPrime, bytes_to_long
+<span style="color:#f92672">import</span> random
+
+FLAG <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#39;flag.txt&#39;</span>,<span style="color:#e6db74">&#39;rb&#39;</span>)<span style="color:#f92672">.</span>read()
+
+encrypt <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> m: pow(m, e, n)
+decrypt <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> c: pow(c, d, n)
+
+e <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randrange(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">65537</span>, <span style="color:#ae81ff">2</span>)	
+p <span style="color:#f92672">=</span> getStrongPrime(<span style="color:#ae81ff">1024</span>, e<span style="color:#f92672">=</span>e)
+q <span style="color:#f92672">=</span> getStrongPrime(<span style="color:#ae81ff">1024</span>, e<span style="color:#f92672">=</span>e)
+
+n <span style="color:#f92672">=</span> p <span style="color:#f92672">*</span> q
+<span style="color:#960050;background-color:#1e0010">φ</span> <span style="color:#f92672">=</span> (p<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> (q<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+
+d <span style="color:#f92672">=</span> pow(e, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#960050;background-color:#1e0010">φ</span>)
+
+c <span style="color:#f92672">=</span> encrypt(bytes_to_long(FLAG))
+
+<span style="color:#75715e">#print(f&#34;{n=}&#34;)</span>
+<span style="color:#75715e">#print(f&#34;{e=}&#34;)</span>
+<span style="color:#66d9ef">print</span>(f<span style="color:#e6db74">&#34;{c=}&#34;</span>)
+
+<span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+     t <span style="color:#f92672">=</span> int(input(<span style="color:#e6db74">&#34;c=&#34;</span>))
+     <span style="color:#66d9ef">print</span>(decrypt(t)) <span style="color:#66d9ef">if</span> c <span style="color:#f92672">!=</span> t <span style="color:#66d9ef">else</span> None
+</code></pre></div><p>The following python source code is given. We can see a rather classical RSA decryption/signing oracle challenge, where a server provides an encrypted flag and decrypts/signs user inputs (the decryption and signing operations in RSA are the same). This oracle however comes with a twist : the players don&rsquo;t get the public key (<code>n</code> and <code>e</code>), only the encrypted flag.</p>
+<h1 id="unintended-n1--n-th-root-attack-small-e">Unintended n°1 : n-th root attack (small e)</h1>
+<p>Thanks to this vulnerability the challenge was solvable in &hellip; 0 queries. Yes that&rsquo;s right, you didn&rsquo;t even have to send a request to the server since when you connect to the server it first sends the encrypted flag.</p>
+<p>When a very small <code>e</code> (<code>3</code>, <code>5</code> or <code>7</code> for example) is used in textbook RSA the decrypted message <code>m</code> can be recovered by taking the <code>e</code>-th root of <code>c</code>. This happens because if <code>m^e</code> is smaller than the modulus <code>n</code> the modulo operation never happens and no actual encryption takes place. The solution to this is to always pad messages (with <code>OAEP</code> for example) and to use a larger <code>e</code>. <code>65537</code> is pretty much the universal default as exponentiation with <a href="https://en.wikipedia.org/wiki/Fermat_number">Fermat Numbers</a> is nice and efficient.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">the vulnerability stems from this line of code :
+</span><span style="color:#e6db74">	e = random.randrange(3, 65537, 2)
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">e can take any odd value in [3, 65537[
+</span><span style="color:#e6db74">e being small enough for an n-th root attack (3, 5 or 7) has a probability of
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">							3 * ((65535-3) / 2)⁻¹ ≈ 9.15e-05
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">So roughly 1 over 10 thousand. It will take, on average, 5_000 requests to be able to get a small enough e. This is easily bruteforceable, even over the internet.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+<span style="color:#f92672">from</span> tqdm <span style="color:#f92672">import</span> tqdm
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
+
+recv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: int(r<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>)[<span style="color:#ae81ff">1</span>])
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">invpow</span>(x, n):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Taken from here : https://stackoverflow.com/questions/356090/how-to-compute-the-nth-root-of-a-very-big-integer
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+    high <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+    <span style="color:#66d9ef">while</span> high <span style="color:#f92672">**</span> n <span style="color:#f92672">&lt;=</span> x:
+        high <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+    low <span style="color:#f92672">=</span> high<span style="color:#f92672">//</span><span style="color:#ae81ff">2</span>
+    <span style="color:#66d9ef">while</span> low <span style="color:#f92672">&lt;</span> high:
+        mid <span style="color:#f92672">=</span> (low <span style="color:#f92672">+</span> high) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+        <span style="color:#66d9ef">if</span> low <span style="color:#f92672">&lt;</span> mid <span style="color:#f92672">and</span> mid<span style="color:#f92672">**</span>n <span style="color:#f92672">&lt;</span> x:
+            low <span style="color:#f92672">=</span> mid
+        <span style="color:#66d9ef">elif</span> high <span style="color:#f92672">&gt;</span> mid <span style="color:#f92672">and</span> mid<span style="color:#f92672">**</span>n <span style="color:#f92672">&gt;</span> x:
+            high <span style="color:#f92672">=</span> mid
+        <span style="color:#66d9ef">else</span>:
+            <span style="color:#66d9ef">return</span> mid
+    <span style="color:#66d9ef">return</span> mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> tqdm(range(<span style="color:#ae81ff">10</span>_000)):
+
+    r <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;crypto.heroctf.fr&#39;</span>, <span style="color:#ae81ff">9000</span>)
+    c <span style="color:#f92672">=</span> recv()                             <span style="color:#75715e"># get c</span>
+    r<span style="color:#f92672">.</span>close()
+
+    <span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> [<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>]:
+        m <span style="color:#f92672">=</span> long_to_bytes(invpow(c, e))    <span style="color:#75715e"># calculate m^1/3,</span>
+                                           <span style="color:#75715e"># m^1/5 and m^1/7</span>
+        <span style="color:#66d9ef">if</span> m<span style="color:#f92672">.</span>startswith(<span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;Hero{&#34;</span>):
+            <span style="color:#66d9ef">print</span>(m)                       <span style="color:#75715e"># print m</span>
+            input()
+
+<span style="color:#e6db74">&#34;&#34;&#34;output
+</span><span style="color:#e6db74">alol@mecha-kraken$ python3 unintended1.py
+</span><span style="color:#e6db74"> 10%|██████▏                                                       | 991/10000 [15:03&lt;2:32:33,  1.02s/it]
+</span><span style="color:#e6db74">b&#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</code></pre></div><h1 id="unintended-n2--self-blinding">Unintended n°2 : &ldquo;self&rdquo;-blinding</h1>
+<p>OK that was pretty cool but it took quite a while (I had to run the script above twice). Want to see a way to get the flag using a single query <em>instantly</em> ? Well we&rsquo;ll have to talk about blinding first.</p>
+<p>The RSA cryptosystem is interesting because it&rsquo;s malleable when unpadded, ie. it&rsquo;s possible to transform a ciphertext into another ciphertext which decrypts to a related plaintext. This comes from the fact that exponentiation is partially homomorphic.
+$$
+{\displaystyle {\begin{aligned}{\mathcal {E}}(m_{1})\cdot {\mathcal {E}}(m_{2})&amp;=m_{1}^{e}m_{2}^{e};{\bmod {;}}n\[6pt]&amp;=(m_{1}m_{2})^{e};{\bmod {;}}n\[6pt]&amp;={\mathcal {E}}(m_{1}\cdot m_{2})\end{aligned}}}
+$$
+This malleability makes blinding trivial. <a href="https://en.wikipedia.org/wiki/Blinding_(cryptography)">Blinding, as defined by Wikipedia</a>, is a technique by which an agent can provide a service to (i.e., compute a function for) a client in an encoded form without knowing either the real input or the real output. Blinding techniques also have applications to preventing side-channel attacks on encryption devices.
+$$
+\text{Alice wants Bob to sign a message m without it being revealed to Bob.}\<br>
+\text{Alice picks a random integer r and sends Bob }m&rsquo; \text{, such that }m \cdot \mathcal {E}(r) \equiv m&rsquo; [n] \<br>
+\text{Bob sends back } \mathcal {D}(m&rsquo;) = \mathcal {D}(m \cdot \mathcal {E}(r)) = \mathcal {D}(m) \cdot r \<br>
+\text{Alice can now divide }\mathcal {D}(m&rsquo;)\text{ by r to retrieve the signed message without Bob ever knowing the value of neither m nor r.}
+$$</p>
+<p>We could try applying this principal to the challenge to retrieve the flag but we first have to encrypt <code>r</code> and we don&rsquo;t know <code>e</code>. <em>If only we had a valid message encrypted by the server wink wink wink</em>. That&rsquo;s right, the encrypted flag is a valid message ! Instead of choosing a random <code>r</code> to blind <code>m</code> we can use the encrypted flag to blind itself, this way we can take the square root of <code>m'</code> to recover <code>m</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
+
+send <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> m: r<span style="color:#f92672">.</span>sendline(str(m)<span style="color:#f92672">.</span>encode())
+recv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: int(r<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>)[<span style="color:#ae81ff">1</span>])
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">invpow</span>(x, n):
+    <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">    Taken from here : https://stackoverflow.com/questions/356090/how-to-compute-the-nth-root-of-a-very-big-integer
+</span><span style="color:#e6db74">    [Removed for readability]
+</span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+
+r <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;crypto.heroctf.fr&#39;</span>, <span style="color:#ae81ff">9000</span>)
+c <span style="color:#f92672">=</span> recv()                             <span style="color:#75715e"># get c</span>
+
+send(pow(c, <span style="color:#ae81ff">2</span>))                        <span style="color:#75715e"># send c^2</span>
+
+c <span style="color:#f92672">=</span> recv()                             <span style="color:#75715e"># get m^2</span>
+<span style="color:#66d9ef">print</span>(long_to_bytes(invpow(c, <span style="color:#ae81ff">2</span>)))     <span style="color:#75715e"># print m</span>
+
+<span style="color:#e6db74">&#34;&#34;&#34;output
+</span><span style="color:#e6db74">alol@mecha-kraken$ python3 unintended2.py
+</span><span style="color:#e6db74">b&#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</code></pre></div><h1 id="unintended-n3--modular-arithmetic">Unintended n°3 : modular arithmetic</h1>
+<p>We just saw that blindly trusting the user input was a great way to get pwned. Lets do it again ! It uses a simple fact :</p>
+<p>$$
+m \pm k\cdot n \equiv m [n]
+$$
+<em>Is that it ?</em> Yep that&rsquo;s it. After recovering <code>n</code> you could just add <code>n</code> to the encrypted flag, send it to the server and it would return the decrypted flag.
+$$
+{\displaystyle {
+\begin{aligned}
+{\mathcal {D}}(c + n) &amp;= c^{d}n^{d};{\bmod {;}}n \[6pt]
+&amp;= c^{d};{\bmod {;}}n \[6pt]
+&amp;= m
+\end{aligned}
+}}
+$$</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
+
+send <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> m: r<span style="color:#f92672">.</span>sendline(str(m)<span style="color:#f92672">.</span>encode())
+recv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: int(r<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>)[<span style="color:#ae81ff">1</span>])
+
+r <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;crypto.heroctf.fr&#39;</span>, <span style="color:#ae81ff">9000</span>)
+c <span style="color:#f92672">=</span> recv()                             <span style="color:#75715e"># get c</span>
+
+send(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)                               <span style="color:#75715e"># send -1</span>
+
+n <span style="color:#f92672">=</span> recv() <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>                         <span style="color:#75715e"># get n</span>
+send(c <span style="color:#f92672">+</span> n)                            <span style="color:#75715e"># send c+n</span>
+
+<span style="color:#66d9ef">print</span>(long_to_bytes(recv()))           <span style="color:#75715e"># print m</span>
+
+<span style="color:#e6db74">&#34;&#34;&#34;output
+</span><span style="color:#e6db74">alol@mecha-kraken$ python3 unintended3.py
+</span><span style="color:#e6db74">b&#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</code></pre></div><h1 id="the-intended-way-">The intended way :</h1>
+<p>Before solving the challenge the intended way lets look into mitigations for the unintendeds.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e">#!/usr/bin/env python3</span>
+<span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> getStrongPrime, bytes_to_long
+<span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> pad
+<span style="color:#f92672">import</span> random
+
+FLAG <span style="color:#f92672">=</span> pad(open(<span style="color:#e6db74">&#39;flag.txt&#39;</span>,<span style="color:#e6db74">&#39;rb&#39;</span>)<span style="color:#f92672">.</span>read(), <span style="color:#ae81ff">128</span>) <span style="color:#75715e"># fix unintended n°1 : pad the flag so the</span>
+                                              <span style="color:#75715e"># decryption isn&#39;t trivial anymore</span>
+
+<span style="color:#75715e"># [Removed for readability]</span>
+
+<span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+     t <span style="color:#f92672">=</span> decrypt(int(input(<span style="color:#e6db74">&#34;c=&#34;</span>)))   <span style="color:#75715e"># fix unintended n°3 : make sure the output != flag</span>
+     <span style="color:#66d9ef">print</span>(t) <span style="color:#66d9ef">if</span> FLAG <span style="color:#f92672">!=</span> t <span style="color:#66d9ef">else</span> None
+</code></pre></div><p>The unintended n°2 isn&rsquo;t easy to patch so it&rsquo;s been left in. Well done W00dy, you&rsquo;re a pretty smart dude.</p>
+<p>So how was the challenge meant to be solved ? TL;DR : recover n, recover e and recover the flag.</p>
+<h3 id="step-1-recover-n">Step 1: recover n</h3>
+<p>Can&rsquo;t do much modular arithmetic without a modulus right ? Retrieving n is surprisingly easy but requires a bit of thinking.
+$$
+{\displaystyle {\begin{aligned}
+{\mathcal {D}}(-1) &amp;= (-1)^{d} \bmod n\[6pt]
+&amp;=(-1)^{2k+1} \bmod n\[6pt]
+&amp;=(-1)^{2k} \cdot (-1)^{1} \bmod n\[6pt]
+&amp;=1\cdot -1 \bmod n\[6pt]
+&amp;=-1 \bmod n\[6pt]
+&amp;= n -1
+\end{aligned}}}
+$$
+Just add one and you have <code>n</code> ! But <em>why</em> ? You&rsquo;ll find a more in depth explanation <a href="https://math.stackexchange.com/questions/1221723/why-in-rsa-the-public-exponent-e-must-be-coprime-with-phi-n">here</a> but basically :</p>
+<ul>
+<li><code>p</code> and <code>q</code> are two large primes so they&rsquo;re odd numbers.</li>
+<li><code>n</code>, the product of <code>p</code> and <code>q</code>, is odd and <code>φ</code>, the product of <code>(p - 1)</code> and <code>(q - 1)</code>, is even.</li>
+<li>Lets recall that in RSA, <code>ed = kφ + 1</code>. The right side of the equation is odd so the right side also must be odd, thus both <code>e</code> and <code>d</code> must odd.</li>
+</ul>
+<h3 id="step-2-recover-e">Step 2: recover e</h3>
+<p>Now that we have <code>n</code> we&rsquo;re only missing <code>e</code> to be able to encrypt with the public key. We know <code>e</code> is an odd number in the range <code>[3, 65537[</code> so we can send an arbitrary value (say <code>2</code> for example), receive <code>dec(2)</code> and bruteforce all possible values for <code>e</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># [...]</span>
+send(<span style="color:#ae81ff">2</span>)
+two <span style="color:#f92672">=</span> recv()
+
+<span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> tqdm(range(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">65537</span>, <span style="color:#ae81ff">2</span>)):
+	<span style="color:#66d9ef">if</span> pow(two, e, n) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+		<span style="color:#66d9ef">break</span>
+</code></pre></div><h3 id="step-3-recover-the-flag">Step 3: recover the flag</h3>
+<p>Now that we can encrypt arbitrary values we can perform a blinding attack. We&rsquo;ll use <code>2</code> and <code>dec(2)</code> as we already have them.</p>
+<p>Here&rsquo;s the full script to retrieve the flag :</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> Crypto.Util.number <span style="color:#f92672">import</span> long_to_bytes
+<span style="color:#f92672">from</span> Crypto.Util.Padding <span style="color:#f92672">import</span> unpad
+<span style="color:#f92672">from</span> tqdm <span style="color:#f92672">import</span> tqdm
+<span style="color:#f92672">from</span> pwn <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+context<span style="color:#f92672">.</span>log_level <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;warning&#39;</span>
+
+send <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> m: r<span style="color:#f92672">.</span>sendline(str(m)<span style="color:#f92672">.</span>encode())
+recv <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span>: int(r<span style="color:#f92672">.</span>recvline()<span style="color:#f92672">.</span>decode()<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;=&#34;</span>)[<span style="color:#ae81ff">1</span>])
+
+r <span style="color:#f92672">=</span> remote(<span style="color:#e6db74">&#39;crypto.heroctf.fr&#39;</span>, <span style="color:#ae81ff">9000</span>)
+
+c <span style="color:#f92672">=</span> recv()                             <span style="color:#75715e"># get c</span>
+
+send(<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)                               <span style="color:#75715e"># send c^2</span>
+n <span style="color:#f92672">=</span> recv() <span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>                          <span style="color:#75715e"># get m^2</span>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;[+] Got N&#39;</span>)
+
+send(<span style="color:#ae81ff">2</span>)                                <span style="color:#75715e"># use 2 as blinding value</span>
+two <span style="color:#f92672">=</span> recv()
+
+<span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> tqdm(range(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">65537</span>, <span style="color:#ae81ff">2</span>)):     <span style="color:#75715e"># retreive e</span>
+	<span style="color:#66d9ef">if</span> pow(two, e, n) <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span>:
+		<span style="color:#66d9ef">break</span>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;[+] Got e&#39;</span>, e)
+
+send(c <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>)                            <span style="color:#75715e"># blind the encrypted flag</span>
+p <span style="color:#f92672">=</span> (recv() <span style="color:#f92672">*</span> pow(two, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, n)) <span style="color:#f92672">%</span> n     <span style="color:#75715e"># unblind the flag</span>
+<span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#39;[+] Got flag&#39;</span>, unpad(long_to_bytes(p), <span style="color:#ae81ff">128</span>))
+
+<span style="color:#e6db74">&#34;&#34;&#34;output
+</span><span style="color:#e6db74">[+] Got N
+</span><span style="color:#e6db74"> 87%|█████████████████████████▏   | 28495/32767 [00:13&lt;00:02, 2126.60it/s]
+</span><span style="color:#e6db74">[+] Got e 56993
+</span><span style="color:#e6db74">[+] Got flag b&#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#39;
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+</code></pre></div><h1 id="to-conclude">To conclude</h1>
+<p>Making challenges is easy, making challenges that you think the players will find interesting is hard and making interesting challenges that won&rsquo;t be full of &ldquo;unintendeds&rdquo; is even harder. I&rsquo;ve already coded and tested several crypto challenges for next year (HeroCTF v5 is planned for january 2023) and hopefully they won&rsquo;t be full of holes. Ironically, a challenge full of holes is a great way for everybody to learn.</p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2022-05-29</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts">
+			Next<br>No newer posts.
+                </a>
+                
+                
+                
+                <a class="older-posts" href="http://clubsecuesiea.github.io/posts/onceforall/">
+			Previous<br>[HackTheBox Cyber Apocalypse 2022 - pwn] pwn - Once for all
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Beerware shit
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script>
+    </body>
+</html>
