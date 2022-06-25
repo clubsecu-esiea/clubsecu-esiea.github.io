@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>crypto on ESIEA security club</title>
-    <link>http://clubsecuesiea.github.io/categories/crypto/</link>
+    <link>https://clubsecu-esiea.github.io/categories/crypto/</link>
     <description>Recent content in crypto on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Beerware shit</copyright>
     <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://clubsecuesiea.github.io/categories/crypto/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://clubsecu-esiea.github.io/categories/crypto/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[HeroCTF v4 - crypto] How (not) to make a crypto challenge</title>
-      <link>http://clubsecuesiea.github.io/posts/oracles_apprentice/</link>
+      <link>https://clubsecu-esiea.github.io/posts/oracles_apprentice/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>http://clubsecuesiea.github.io/posts/oracles_apprentice/</guid>
+      <guid>https://clubsecu-esiea.github.io/posts/oracles_apprentice/</guid>
       <description># The oracle&#39;s apprentice Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She&#39;s new to the job so if she forgets anything... you&#39;ll just have to deal with it. Good luck ! `Format : Hero{flag}` `Author : Alol` (NB: that&#39;s me !) The premise As it turns out I fucked up. The 4th edition of the HeroCTF is about to end after a weekend of everything going surprisingly well.</description>
     </item>
     

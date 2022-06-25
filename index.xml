@@ -2,26 +2,28 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ESIEA security club</title>
-    <link>http://clubsecuesiea.github.io/</link>
+    <link>https://clubsecu-esiea.github.io/</link>
     <description>Recent content on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Beerware shit</copyright>
     <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate>
     
-        <atom:link href="http://clubsecuesiea.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <atom:link href="https://clubsecu-esiea.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     
         <item>
         <title>[HeroCTF v4 - crypto] How (not) to make a crypto challenge</title>
-        <link>http://clubsecuesiea.github.io/posts/oracles_apprentice/</link>
+        <link>https://clubsecu-esiea.github.io/posts/oracles_apprentice/</link>
         <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
         
-        <guid>http://clubsecuesiea.github.io/posts/oracles_apprentice/</guid>
-        <description>ESIEA security club http://clubsecuesiea.github.io/posts/oracles_apprentice/ -&lt;pre&gt;&lt;code&gt;# The oracle&#39;s apprentice
+        <guid>https://clubsecu-esiea.github.io/posts/oracles_apprentice/</guid>
+        <description>ESIEA security club https://clubsecu-esiea.github.io/posts/oracles_apprentice/ -&lt;pre&gt;&lt;code&gt;# The oracle&#39;s apprentice
 
-Looks like Tiresias, the blind oracle, took a nice long holiday and his apprentice had to cover for him. She&#39;s new to the job so if she forgets anything... you&#39;ll just have to deal with it.
+Looks like Tiresias, the blind oracle, took a nice long holiday and his
+apprentice had to cover for him. She&#39;s new to the job so if she forgets
+anything... you&#39;ll just have to deal with it.
 
 Good luck !
 
@@ -58,6 +60,7 @@ c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; encrypt(bytes_to_long
      t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c=&amp;#34;&lt;/span&gt;))
      &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(decrypt(t)) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; c &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; None
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The following python source code is given. We can see a rather classical RSA decryption/signing oracle challenge, where a server provides an encrypted flag and decrypts/signs user inputs (the decryption and signing operations in RSA are the same). This oracle however comes with a twist : the players don&amp;rsquo;t get the public key (&lt;code&gt;n&lt;/code&gt; and &lt;code&gt;e&lt;/code&gt;), only the encrypted flag.&lt;/p&gt;
+&lt;p&gt;   &lt;/p&gt;
 &lt;h1 id=&#34;unintended-n1--n-th-root-attack-small-e&#34;&gt;Unintended n°1 : n-th root attack (small e)&lt;/h1&gt;
 &lt;p&gt;Thanks to this vulnerability the challenge was solvable in &amp;hellip; 0 queries. Yes that&amp;rsquo;s right, you didn&amp;rsquo;t even have to send a request to the server since when you connect to the server it first sends the encrypted flag.&lt;/p&gt;
 &lt;p&gt;When a very small &lt;code&gt;e&lt;/code&gt; (&lt;code&gt;3&lt;/code&gt;, &lt;code&gt;5&lt;/code&gt; or &lt;code&gt;7&lt;/code&gt; for example) is used in textbook RSA the decrypted message &lt;code&gt;m&lt;/code&gt; can be recovered by taking the &lt;code&gt;e&lt;/code&gt;-th root of &lt;code&gt;c&lt;/code&gt;. This happens because if &lt;code&gt;m^e&lt;/code&gt; is smaller than the modulus &lt;code&gt;n&lt;/code&gt; the modulo operation never happens and no actual encryption takes place. The solution to this is to always pad messages (with &lt;code&gt;OAEP&lt;/code&gt; for example) and to use a larger &lt;code&gt;e&lt;/code&gt;. &lt;code&gt;65537&lt;/code&gt; is pretty much the universal default as exponentiation with &lt;a href=&#34;https://en.wikipedia.org/wiki/Fermat_number&#34;&gt;Fermat Numbers&lt;/a&gt; is nice and efficient.&lt;/p&gt;
@@ -70,7 +73,9 @@ c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; encrypt(bytes_to_long
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;							3 * ((65535-3) / 2)⁻¹ ≈ 9.15e-05
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;So roughly 1 over 10 thousand. It will take, on average, 5_000 requests to be able to get a small enough e. This is easily bruteforceable, even over the internet.
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;So roughly 1 over 10 thousand. It will take, on average, 5_000 requests to be
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;able to get a small enough e.
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;This is easily bruteforceable, even over the internet.
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
 
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.number &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; long_to_bytes
@@ -82,7 +87,9 @@ recv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;invpow&lt;/span&gt;(x, n):
     &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    Taken from here : https://stackoverflow.com/questions/356090/how-to-compute-the-nth-root-of-a-very-big-integer
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    Taken from here : 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    https://stackoverflow.com/questions/356090/how-to-compute&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                           -the-nth-root-of-a-very-big-integer
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
     high &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
     &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; high &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; x:
@@ -113,22 +120,20 @@ recv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 
 &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;output
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;alol@mecha-kraken$ python3 unintended1.py
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; 10%|██████▏                                                       | 991/10000 [15:03&amp;lt;2:32:33,  1.02s/it]
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; 10%|████▏                         | 991/10000 [15:03&amp;lt;2:32:33,  1.02s/it]
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;unintended-n2--self-blinding&#34;&gt;Unintended n°2 : &amp;ldquo;self&amp;rdquo;-blinding&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;   &lt;/p&gt;
+&lt;h1 id=&#34;unintended-n2--self-blinding&#34;&gt;Unintended n°2 : &amp;ldquo;self&amp;rdquo;-blinding&lt;/h1&gt;
 &lt;p&gt;OK that was pretty cool but it took quite a while (I had to run the script above twice). Want to see a way to get the flag using a single query &lt;em&gt;instantly&lt;/em&gt; ? Well we&amp;rsquo;ll have to talk about blinding first.&lt;/p&gt;
 &lt;p&gt;The RSA cryptosystem is interesting because it&amp;rsquo;s malleable when unpadded, ie. it&amp;rsquo;s possible to transform a ciphertext into another ciphertext which decrypts to a related plaintext. This comes from the fact that exponentiation is partially homomorphic.
 $$
-{\displaystyle {\begin{aligned}{\mathcal {E}}(m_{1})\cdot {\mathcal {E}}(m_{2})&amp;amp;=m_{1}^{e}m_{2}^{e};{\bmod {;}}n\[6pt]&amp;amp;=(m_{1}m_{2})^{e};{\bmod {;}}n\[6pt]&amp;amp;={\mathcal {E}}(m_{1}\cdot m_{2})\end{aligned}}}
+{\displaystyle {\begin{aligned}{\mathcal {E}}(m_{1})\cdot {\mathcal {E}}(m_{2})&amp;amp;=m_{1}^{e}m_{2}^{e};{\bmod {;}}n\\&amp;amp;=(m_{1}m_{2})^{e};{\bmod {;}}n\\&amp;amp;={\mathcal {E}}(m_{1}\cdot m_{2})\end{aligned}}}
 $$
-This malleability makes blinding trivial. &lt;a href=&#34;https://en.wikipedia.org/wiki/Blinding_(cryptography)&#34;&gt;Blinding, as defined by Wikipedia&lt;/a&gt;, is a technique by which an agent can provide a service to (i.e., compute a function for) a client in an encoded form without knowing either the real input or the real output. Blinding techniques also have applications to preventing side-channel attacks on encryption devices.
-$$
-\text{Alice wants Bob to sign a message m without it being revealed to Bob.}\&lt;br&gt;
-\text{Alice picks a random integer r and sends Bob }m&amp;rsquo; \text{, such that }m \cdot \mathcal {E}(r) \equiv m&amp;rsquo; [n] \&lt;br&gt;
-\text{Bob sends back } \mathcal {D}(m&amp;rsquo;) = \mathcal {D}(m \cdot \mathcal {E}(r)) = \mathcal {D}(m) \cdot r \&lt;br&gt;
-\text{Alice can now divide }\mathcal {D}(m&amp;rsquo;)\text{ by r to retrieve the signed message without Bob ever knowing the value of neither m nor r.}
+This malleability makes blinding trivial. &lt;a href=&#34;https://en.wikipedia.org/wiki/Blinding_(cryptography)&#34;&gt;Blinding, as defined by Wikipedia&lt;/a&gt;, is a technique by which an agent can provide a service to (i.e., compute a function for) a client in an encoded form without knowing either the real input or the real output. Blinding techniques also have applications to preventing side-channel attacks on encryption devices.&lt;/p&gt;
+&lt;p&gt;$$
+\text{Alice wants Bob to sign a message m without it being revealed to Bob.}\\\text{Alice picks a random integer r and sends Bob }m&amp;rsquo;\text{, such that }m \cdot \mathcal {E}(r) \equiv m&amp;rsquo; [n]\\\text{Bob sends back } \mathcal {D}(m&amp;rsquo;) = \mathcal {D}(m \cdot\mathcal {E}(r)) = \mathcal {D}(m) \cdot r\\\text{Alice can now divide }\mathcal {D}(m&amp;rsquo;)\text{ by r to retrieve the signed message}\\\text{without Bob ever knowing the value of neither m nor r.}
 $$&lt;/p&gt;
 &lt;p&gt;We could try applying this principal to the challenge to retrieve the flag but we first have to encrypt &lt;code&gt;r&lt;/code&gt; and we don&amp;rsquo;t know &lt;code&gt;e&lt;/code&gt;. &lt;em&gt;If only we had a valid message encrypted by the server wink wink wink&lt;/em&gt;. That&amp;rsquo;s right, the encrypted flag is a valid message ! Instead of choosing a random &lt;code&gt;r&lt;/code&gt; to blind &lt;code&gt;m&lt;/code&gt; we can use the encrypted flag to blind itself, this way we can take the square root of &lt;code&gt;m&#39;&lt;/code&gt; to recover &lt;code&gt;m&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.number &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; long_to_bytes
@@ -140,7 +145,9 @@ recv &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#3
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;invpow&lt;/span&gt;(x, n):
     &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    Taken from here : https://stackoverflow.com/questions/356090/how-to-compute-the-nth-root-of-a-very-big-integer
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    Taken from here : 
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    https://stackoverflow.com/questions/356090/how-to-compute&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;                           -the-nth-root-of-a-very-big-integer
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    [Removed for readability]
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;    &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
 
@@ -156,20 +163,15 @@ c &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; recv()               
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;alol@mecha-kraken$ python3 unintended2.py
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;unintended-n3--modular-arithmetic&#34;&gt;Unintended n°3 : modular arithmetic&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;   &lt;/p&gt;
+&lt;h1 id=&#34;unintended-n3--modular-arithmetic&#34;&gt;Unintended n°3 : modular arithmetic&lt;/h1&gt;
 &lt;p&gt;We just saw that blindly trusting the user input was a great way to get pwned. Lets do it again ! It uses a simple fact :&lt;/p&gt;
 &lt;p&gt;$$
-m \pm k\cdot n \equiv m [n]
+{\displaystyle{\begin{aligned}{m\pm k\cdot n\equiv m [n]\\}\end{aligned}}}
 $$
 &lt;em&gt;Is that it ?&lt;/em&gt; Yep that&amp;rsquo;s it. After recovering &lt;code&gt;n&lt;/code&gt; you could just add &lt;code&gt;n&lt;/code&gt; to the encrypted flag, send it to the server and it would return the decrypted flag.
 $$
-{\displaystyle {
-\begin{aligned}
-{\mathcal {D}}(c + n) &amp;amp;= c^{d}n^{d};{\bmod {;}}n \[6pt]
-&amp;amp;= c^{d};{\bmod {;}}n \[6pt]
-&amp;amp;= m
-\end{aligned}
-}}
+{\displaystyle { \begin{aligned}{\mathcal {D}}(c + n) &amp;amp;= c^{d}n^{d} \bmod n \\&amp;amp;= c^{d} \bmod n \\&amp;amp;= m \\\end{aligned}}}
 $$&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.number &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; long_to_bytes
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; pwn &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;
@@ -192,34 +194,30 @@ send(c &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; n)              
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;alol@mecha-kraken$ python3 unintended3.py
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;b&amp;#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;the-intended-way-&#34;&gt;The intended way :&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;   &lt;/p&gt;
+&lt;h1 id=&#34;the-intended-way-&#34;&gt;The intended way :&lt;/h1&gt;
 &lt;p&gt;Before solving the challenge the intended way lets look into mitigations for the unintendeds.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/env python3&lt;/span&gt;
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.number &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; getStrongPrime, bytes_to_long
 &lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.Padding &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pad
 &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; random
 
-FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pad(open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag.txt&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rb&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;# fix unintended n°1 : pad the flag so the&lt;/span&gt;
-                                              &lt;span style=&#34;color:#75715e&#34;&gt;# decryption isn&amp;#39;t trivial anymore&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# fix unintended n°1 : pad the flag so the&lt;/span&gt;
+&lt;span style=&#34;color:#75715e&#34;&gt;# decryption isn&amp;#39;t trivial anymore&lt;/span&gt;
+FLAG &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; pad(open(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;flag.txt&amp;#39;&lt;/span&gt;,&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rb&amp;#39;&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;read(), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;) 
 
 &lt;span style=&#34;color:#75715e&#34;&gt;# [Removed for readability]&lt;/span&gt;
 
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; _ &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;):
-     t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; decrypt(int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c=&amp;#34;&lt;/span&gt;)))   &lt;span style=&#34;color:#75715e&#34;&gt;# fix unintended n°3 : make sure the output != flag&lt;/span&gt;
+     &lt;span style=&#34;color:#75715e&#34;&gt;# fix unintended n°3 : make sure the output != flag&lt;/span&gt;
+     t &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; decrypt(int(input(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c=&amp;#34;&lt;/span&gt;)))
      &lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(t) &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; FLAG &lt;span style=&#34;color:#f92672&#34;&gt;!=&lt;/span&gt; t &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; None
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The unintended n°2 isn&amp;rsquo;t easy to patch so it&amp;rsquo;s been left in. Well done W00dy, you&amp;rsquo;re a pretty smart dude.&lt;/p&gt;
 &lt;p&gt;So how was the challenge meant to be solved ? TL;DR : recover n, recover e and recover the flag.&lt;/p&gt;
-&lt;h3 id=&#34;step-1-recover-n&#34;&gt;Step 1: recover n&lt;/h3&gt;
+&lt;h2 id=&#34;step-1-recover-n&#34;&gt;Step 1: recover n&lt;/h2&gt;
 &lt;p&gt;Can&amp;rsquo;t do much modular arithmetic without a modulus right ? Retrieving n is surprisingly easy but requires a bit of thinking.
 $$
-{\displaystyle {\begin{aligned}
-{\mathcal {D}}(-1) &amp;amp;= (-1)^{d} \bmod n\[6pt]
-&amp;amp;=(-1)^{2k+1} \bmod n\[6pt]
-&amp;amp;=(-1)^{2k} \cdot (-1)^{1} \bmod n\[6pt]
-&amp;amp;=1\cdot -1 \bmod n\[6pt]
-&amp;amp;=-1 \bmod n\[6pt]
-&amp;amp;= n -1
-\end{aligned}}}
+{\displaystyle {\begin{aligned}{\mathcal {D}}(-1) &amp;amp;= (-1)^{d} \bmod n\\&amp;amp;=(-1)^{2k+1} \bmod n\\&amp;amp;=(-1)^{2k} \cdot (-1)^{1} \bmod n\\&amp;amp;=1\cdot -1 \bmod n\\&amp;amp;=-1 \bmod n\\&amp;amp;= n -1 \\\end{aligned}}}
 $$
 Just add one and you have &lt;code&gt;n&lt;/code&gt; ! But &lt;em&gt;why&lt;/em&gt; ? You&amp;rsquo;ll find a more in depth explanation &lt;a href=&#34;https://math.stackexchange.com/questions/1221723/why-in-rsa-the-public-exponent-e-must-be-coprime-with-phi-n&#34;&gt;here&lt;/a&gt; but basically :&lt;/p&gt;
 &lt;ul&gt;
@@ -227,7 +225,7 @@ Just add one and you have &lt;code&gt;n&lt;/code&gt; ! But &lt;em&gt;why&lt;/em&
 &lt;li&gt;&lt;code&gt;n&lt;/code&gt;, the product of &lt;code&gt;p&lt;/code&gt; and &lt;code&gt;q&lt;/code&gt;, is odd and &lt;code&gt;φ&lt;/code&gt;, the product of &lt;code&gt;(p - 1)&lt;/code&gt; and &lt;code&gt;(q - 1)&lt;/code&gt;, is even.&lt;/li&gt;
 &lt;li&gt;Lets recall that in RSA, &lt;code&gt;ed = kφ + 1&lt;/code&gt;. The right side of the equation is odd so the right side also must be odd, thus both &lt;code&gt;e&lt;/code&gt; and &lt;code&gt;d&lt;/code&gt; must odd.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;step-2-recover-e&#34;&gt;Step 2: recover e&lt;/h3&gt;
+&lt;h2 id=&#34;step-2-recover-e&#34;&gt;Step 2: recover e&lt;/h2&gt;
 &lt;p&gt;Now that we have &lt;code&gt;n&lt;/code&gt; we&amp;rsquo;re only missing &lt;code&gt;e&lt;/code&gt; to be able to encrypt with the public key. We know &lt;code&gt;e&lt;/code&gt; is an odd number in the range &lt;code&gt;[3, 65537[&lt;/code&gt; so we can send an arbitrary value (say &lt;code&gt;2&lt;/code&gt; for example), receive &lt;code&gt;dec(2)&lt;/code&gt; and bruteforce all possible values for &lt;code&gt;e&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# [...]&lt;/span&gt;
 send(&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
@@ -236,7 +234,7 @@ two &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; recv()
 &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; e &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; tqdm(range(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;65537&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)):
 	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; pow(two, e, n) &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;:
 		&lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;step-3-recover-the-flag&#34;&gt;Step 3: recover the flag&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-3-recover-the-flag&#34;&gt;Step 3: recover the flag&lt;/h2&gt;
 &lt;p&gt;Now that we can encrypt arbitrary values we can perform a blinding attack. We&amp;rsquo;ll use &lt;code&gt;2&lt;/code&gt; and &lt;code&gt;dec(2)&lt;/code&gt; as we already have them.&lt;/p&gt;
 &lt;p&gt;Here&amp;rsquo;s the full script to retrieve the flag :&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; Crypto.Util.number &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; long_to_bytes
@@ -266,28 +264,29 @@ two &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; recv()
 
 send(c &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)                            &lt;span style=&#34;color:#75715e&#34;&gt;# blind the encrypted flag&lt;/span&gt;
 p &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (recv() &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; pow(two, &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, n)) &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; n     &lt;span style=&#34;color:#75715e&#34;&gt;# unblind the flag&lt;/span&gt;
-&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] Got flag&amp;#39;&lt;/span&gt;, unpad(long_to_bytes(p), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;))
+&lt;span style=&#34;color:#66d9ef&#34;&gt;print&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] Got flag&amp;#39;&lt;/span&gt;, unpad(long_to_bytes(p), &lt;span style=&#34;color:#ae81ff&#34;&gt;128&lt;/span&gt;)&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;decode()&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;strip())
 
 &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;output
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[+] Got N
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; 87%|█████████████████████████▏   | 28495/32767 [00:13&amp;lt;00:02, 2126.60it/s]
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[+] Got e 56993
-&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[+] Got flag b&amp;#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;\n&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;
+&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;[+] Got flag &amp;#39;Hero{m4ybe_le4ving_the_1nt3rn_run_th3_plac3_wasnt_a_g00d_id3a}&amp;#39;
 &lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;to-conclude&#34;&gt;To conclude&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;   &lt;/p&gt;
+&lt;h1 id=&#34;to-conclude&#34;&gt;To conclude&lt;/h1&gt;
 &lt;p&gt;Making challenges is easy, making challenges that you think the players will find interesting is hard and making interesting challenges that won&amp;rsquo;t be full of &amp;ldquo;unintendeds&amp;rdquo; is even harder. I&amp;rsquo;ve already coded and tested several crypto challenges for next year (HeroCTF v5 is planned for january 2023) and hopefully they won&amp;rsquo;t be full of holes. Ironically, a challenge full of holes is a great way for everybody to learn.&lt;/p&gt;
-- http://clubsecuesiea.github.io/posts/oracles_apprentice/ - Beerware shit</description>
+- https://clubsecu-esiea.github.io/posts/oracles_apprentice/ - Beerware shit</description>
         </item>
     
     
     
         <item>
         <title>[HackTheBox Cyber Apocalypse 2022 - pwn] pwn - Once for all</title>
-        <link>http://clubsecuesiea.github.io/posts/onceforall/</link>
+        <link>https://clubsecu-esiea.github.io/posts/onceforall/</link>
         <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
         
-        <guid>http://clubsecuesiea.github.io/posts/onceforall/</guid>
-        <description>ESIEA security club http://clubsecuesiea.github.io/posts/onceforall/ -&lt;p&gt;Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.&lt;/p&gt;
+        <guid>https://clubsecu-esiea.github.io/posts/onceforall/</guid>
+        <description>ESIEA security club https://clubsecu-esiea.github.io/posts/onceforall/ -&lt;p&gt;Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin.&lt;/p&gt;
 &lt;h1 id=&#34;reverse-engineering&#34;&gt;Reverse engineering&lt;/h1&gt;
 &lt;p&gt;All the snippets of pseudo-code are issued by &lt;a href=&#34;https://hex-rays.com/ida-free/&#34;&gt;IDA freeware&lt;/a&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;__cdecl&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; argc, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;argv, &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;**&lt;/span&gt;envp)
@@ -977,19 +976,19 @@ glibc
 once_and_for_all
 $ cat flag.txt
 HTB{m4y_th3_f0rc3_b3_w1th_B0Nn13!}
-&lt;/code&gt;&lt;/pre&gt;- http://clubsecuesiea.github.io/posts/onceforall/ - Beerware shit</description>
+&lt;/code&gt;&lt;/pre&gt;- https://clubsecu-esiea.github.io/posts/onceforall/ - Beerware shit</description>
         </item>
     
     
     
         <item>
         <title>About us</title>
-        <link>http://clubsecuesiea.github.io/posts/about/</link>
+        <link>https://clubsecu-esiea.github.io/posts/about/</link>
         <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
         
-        <guid>http://clubsecuesiea.github.io/posts/about/</guid>
-        <description>ESIEA security club http://clubsecuesiea.github.io/posts/about/ -&lt;p&gt;We&amp;rsquo;re a bunch of security enthusiasts and students from the &lt;a href=&#34;https://www.esiea.fr/&#34;&gt;ESIEA&lt;/a&gt; engineering school. We aim to work on various security related subjects. On this website you will mainly find some write-ups about CTF challenges.&lt;/p&gt;
-- http://clubsecuesiea.github.io/posts/about/ - Beerware shit</description>
+        <guid>https://clubsecu-esiea.github.io/posts/about/</guid>
+        <description>ESIEA security club https://clubsecu-esiea.github.io/posts/about/ -&lt;p&gt;We&amp;rsquo;re a bunch of security enthusiasts and students from the &lt;a href=&#34;https://www.esiea.fr/&#34;&gt;ESIEA&lt;/a&gt; engineering school. We aim to work on various security related subjects. On this website you will mainly find some write-ups about CTF challenges.&lt;/p&gt;
+- https://clubsecu-esiea.github.io/posts/about/ - Beerware shit</description>
         </item>
     
     
