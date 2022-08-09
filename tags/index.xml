@@ -2,76 +2,216 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on ESIEA security club</title>
-    <link>https://clubsecu-esiea.github.io/tags/</link>
+    <link>http://clubsecuesiea.github.io/tags/</link>
     <description>Recent content in Tags on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Beerware shit</copyright>
-    <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://clubsecuesiea.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>2022</title>
+      <link>http://clubsecuesiea.github.io/tags/2022/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/2022/</guid>
+      <description></description>
+    </item>
     
-	<atom:link href="https://clubsecu-esiea.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    
+    <item>
+      <title>corCTF</title>
+      <link>http://clubsecuesiea.github.io/tags/corctf/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/corctf/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>ctf</title>
-      <link>https://clubsecu-esiea.github.io/tags/ctf/</link>
-      <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+      <link>http://clubsecuesiea.github.io/tags/ctf/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/tags/ctf/</guid>
+      <guid>http://clubsecuesiea.github.io/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>heap</title>
+      <link>http://clubsecuesiea.github.io/tags/heap/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/heap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nasm</title>
+      <link>http://clubsecuesiea.github.io/tags/nasm/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/nasm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>pwn</title>
+      <link>http://clubsecuesiea.github.io/tags/pwn/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/pwn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zig</title>
+      <link>http://clubsecuesiea.github.io/tags/zig/</link>
+      <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/zig/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aaSSfxxx</title>
+      <link>http://clubsecuesiea.github.io/tags/aassfxxx/</link>
+      <pubDate>Thu, 28 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/aassfxxx/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>diceCTF</title>
+      <link>http://clubsecuesiea.github.io/tags/dicectf/</link>
+      <pubDate>Thu, 28 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/dicectf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FSOP</title>
+      <link>http://clubsecuesiea.github.io/tags/fsop/</link>
+      <pubDate>Thu, 28 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/fsop/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HeroCTF</title>
-      <link>https://clubsecu-esiea.github.io/tags/heroctf/</link>
+      <link>http://clubsecuesiea.github.io/tags/heroctf/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/tags/heroctf/</guid>
+      <guid>http://clubsecuesiea.github.io/tags/heroctf/</guid>
       <description></description>
     </item>
     
     <item>
       <title>medium</title>
-      <link>https://clubsecu-esiea.github.io/tags/medium/</link>
+      <link>http://clubsecuesiea.github.io/tags/medium/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/tags/medium/</guid>
+      <guid>http://clubsecuesiea.github.io/tags/medium/</guid>
       <description></description>
     </item>
     
     <item>
       <title>rsa</title>
-      <link>https://clubsecu-esiea.github.io/tags/rsa/</link>
+      <link>http://clubsecuesiea.github.io/tags/rsa/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/tags/rsa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>advanced</title>
-      <link>https://clubsecu-esiea.github.io/tags/advanced/</link>
-      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://clubsecu-esiea.github.io/tags/advanced/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>contacts</title>
-      <link>https://clubsecu-esiea.github.io/tags/contacts/</link>
-      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
-      
-      <guid>https://clubsecu-esiea.github.io/tags/contacts/</guid>
+      <guid>http://clubsecuesiea.github.io/tags/rsa/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HackTheBox</title>
-      <link>https://clubsecu-esiea.github.io/tags/hackthebox/</link>
+      <link>http://clubsecuesiea.github.io/tags/hackthebox/</link>
       <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/tags/hackthebox/</guid>
+      <guid>http://clubsecuesiea.github.io/tags/hackthebox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>2021</title>
+      <link>http://clubsecuesiea.github.io/tags/2021/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/2021/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Alol</title>
+      <link>http://clubsecuesiea.github.io/tags/alol/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/alol/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IRL</title>
+      <link>http://clubsecuesiea.github.io/tags/irl/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/irl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rand</title>
+      <link>http://clubsecuesiea.github.io/tags/rand/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/rand/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RE</title>
+      <link>http://clubsecuesiea.github.io/tags/re/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/re/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>reverse</title>
+      <link>http://clubsecuesiea.github.io/tags/reverse/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/reverse/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TRACS</title>
+      <link>http://clubsecuesiea.github.io/tags/tracs/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/tracs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TRACS 2021</title>
+      <link>http://clubsecuesiea.github.io/tags/tracs-2021/</link>
+      <pubDate>Sun, 05 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/tracs-2021/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>contacts</title>
+      <link>http://clubsecuesiea.github.io/tags/contacts/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://clubsecuesiea.github.io/tags/contacts/</guid>
       <description></description>
     </item>
     

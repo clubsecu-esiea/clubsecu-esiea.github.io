@@ -2,22 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>misc on ESIEA security club</title>
-    <link>https://clubsecu-esiea.github.io/categories/misc/</link>
+    <link>http://clubsecuesiea.github.io/categories/misc/</link>
     <description>Recent content in misc on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>Beerware shit</copyright>
-    <lastBuildDate>Thu, 19 May 2022 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://clubsecu-esiea.github.io/categories/misc/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <copyright>Beerware shit</copyright><atom:link href="http://clubsecuesiea.github.io/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About us</title>
-      <link>https://clubsecu-esiea.github.io/posts/about/</link>
-      <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
+      <link>http://clubsecuesiea.github.io/posts/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecu-esiea.github.io/posts/about/</guid>
+      <guid>http://clubsecuesiea.github.io/posts/about/</guid>
       <description>We&amp;rsquo;re a bunch of security enthusiasts and students from the ESIEA engineering school. We aim to work on various security related subjects. On this website you will mainly find some write-ups about CTF challenges.</description>
     </item>
     

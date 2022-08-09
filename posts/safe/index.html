@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html><head>
+<title>[TRACS 2021 - RE] Coffre</title>
+
+
+
+
+<meta charset="utf-8">
+<meta name="X-UA-Compatible" content="IE=edge">
+<meta name="google-site-verification" content="">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+<meta content="telephone=no" name="format-detection">
+<meta name="description" content="">
+<meta name="renderer" content="webkit">
+<meta name="theme-color" content="#ffffff">
+
+
+
+<meta property="og:title" content="[TRACS 2021 - RE] Coffre" />
+<meta property="og:description" content="Intro  Epreuve 12-3 – Coffre En tant que stagiaire vous avez accès aux locaux de la NSB. Vous allez collecter des informations dans les locaux. Un coffre est présent dans les locaux en salle rideau. Il appartient à Richard Cresus de la Tune. Essayez d’ouvrir ce coffre. Quel est l’IBAN contenu dans le coffre ? Format de la réponse : IBAN sans séparateur.
+ Basically, we have to crack open an electronic safe." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://clubsecuesiea.github.io/posts/safe/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-12-05T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-05T00:00:00+00:00" /><meta property="og:site_name" content="ESIEA security club" />
+
+
+
+
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[TRACS 2021 - RE] Coffre"/>
+<meta name="twitter:description" content="Intro  Epreuve 12-3 – Coffre En tant que stagiaire vous avez accès aux locaux de la NSB. Vous allez collecter des informations dans les locaux. Un coffre est présent dans les locaux en salle rideau. Il appartient à Richard Cresus de la Tune. Essayez d’ouvrir ce coffre. Quel est l’IBAN contenu dans le coffre ? Format de la réponse : IBAN sans séparateur.
+ Basically, we have to crack open an electronic safe."/>
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/vendor/css/bootstrap.min.css">
+
+
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/scss/journal.min.c5d92f380bf10f6849c7ac487c7df2b22c081e0851e5339224f1ae29210b20d2.css" integrity="sha256-xdkvOAvxD2hJx6xIfH3ysiwIHghR5TOSJPGuKSELINI=" media="screen">
+
+
+
+<link rel="stylesheet" href="/scss/dark-mode.min.9f8d8c2df9285089d141edd4a50cb7506c7948e6ab79a29968dced1bd0ab7d22.css" integrity="sha256-n42MLfkoUInRQe3UpQy3UGx5SOareaKZaNztG9CrfSI=" media="screen">
+
+
+<script src="/vendor/js/loadCSS.js"></script>
+<script>
+  loadCSS("https://fonts.googleapis.com/css?family=Fira+Mono|Material+Icons");
+</script>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css" integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js" integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          
+          
+          delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+              {left: '\\(', right: '\\)', display: false},
+              {left: '\\[', right: '\\]', display: true}
+          ],
+          
+          throwOnError : false
+        });
+    });
+</script>
+
+
+
+  <script src="/js/toc.js"></script>
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script src="/vendor/js/md5.min.js"></script>
+<script>
+  var gitalk = new Gitalk({
+  clientID: '',
+  clientSecret: '',
+  repo: '',
+  owner: '',
+  admin: [''],
+  id: md5(location.pathname),
+  distractionFreeMode: 'false'
+  });
+  window.onload = function () {
+        gitalk.render('gitalk-container')
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body>
+    	<div id="app"><div id="sideContainer" class="side-container">
+    
+    <a class="a-block nav-head false" href="http://clubsecuesiea.github.io/">
+    
+        <div class="nav-title">
+            ESIEA security club
+        </div>
+        
+    </a>
+
+    <div class="nav-link-list">
+        
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/posts/about/">
+                About us
+            </a>
+            
+        
+            
+            
+            
+                
+            
+            
+            
+            <a class="a-block nav-link-item active" href="/posts">
+                Archive
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/categories">
+                Categories
+            </a>
+            
+        
+            
+            
+            
+            
+            
+            <a class="a-block nav-link-item false" href="/tags">
+                Tags
+            </a>
+            
+        
+    </div>
+
+    
+
+    <div class="nav-footer">
+        
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Beerware shit
+	
+
+    </div>
+    
+</div><div id="extraContainer" class="extra-container">
+    
+    
+    <div class="toc animated-visibility" :class="{ invisible: scrollY <= 140 }">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#intro" onclick="onNavClick(`#intro-nav`)" id="intro-nav">
+									Intro
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#reversing-the-custom-libcryptoso-library" onclick="onNavClick(`#reversing-the-custom-libcryptoso-library-nav`)" id="reversing-the-custom-libcryptoso-library-nav">
+									Reversing the custom libcrypto.so library
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#cracking-the-seed" onclick="onNavClick(`#cracking-the-seed-nav`)" id="cracking-the-seed-nav">
+									Cracking the seed
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashcat--profit" onclick="onNavClick(`#hashcat--profit-nav`)" id="hashcat--profit-nav">
+									Hashcat &#43; PROFIT
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#annexes" onclick="onNavClick(`#annexes-nav`)" id="annexes-nav">
+									Annexes
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+    
+    <div class="pagination">
+        <a id="globalBackToTop" class="pagination-action animated-visibility" href="#top" :class="{ invisible: scrollY == 0 }">
+            <i class="material-icons pagination-action-icon">
+                keyboard_arrow_up
+            </i>
+        </a>
+        
+        <a type="button" class="pagination-action" id="darkModeToggleButton">
+            <span class="material-icons pagination-action-icon" id="darkModeToggleIcon">
+                dark_mode
+            </span>
+        </a>
+        
+        
+    </div>
+</div>
+<div class="single-column-drawer-container" id="drawer"
+     v-bind:class="{ 'single-column-drawer-container-active': isDrawerOpen }">
+    <div class="drawer-content">
+        <div class="drawer-menu">
+            
+            
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/posts/about/">
+                    About us
+                </a>
+                
+            
+                
+                
+                
+                    
+                
+                
+                
+                <a class="a-block drawer-menu-item active" href="/posts">
+                    Archive
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/categories">
+                    Categories
+                </a>
+                
+            
+                
+                
+                
+                
+                
+                <a class="a-block drawer-menu-item false" href="/tags">
+                    Tags
+                </a>
+                
+            
+            
+            <div class="toc">
+
+
+	<div class="toc-content">
+	
+		
+		
+		
+		<center>- CATALOG -</center>
+		
+		
+		<ul>
+			
+				
+				
+					
+						
+						
+						
+						
+							
+								
+									<ul>
+								
+							
+						
+						
+							<li>
+								<a href="#intro" onclick="onNavClick(`#intro-nav`)" id="intro-nav">
+									Intro
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#reversing-the-custom-libcryptoso-library" onclick="onNavClick(`#reversing-the-custom-libcryptoso-library-nav`)" id="reversing-the-custom-libcryptoso-library-nav">
+									Reversing the custom libcrypto.so library
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#cracking-the-seed" onclick="onNavClick(`#cracking-the-seed-nav`)" id="cracking-the-seed-nav">
+									Cracking the seed
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#hashcat--profit" onclick="onNavClick(`#hashcat--profit-nav`)" id="hashcat--profit-nav">
+									Hashcat &#43; PROFIT
+								</a>
+							</li>
+						
+						
+					
+				
+			
+				
+				
+					
+						
+						
+						
+						
+						
+							<li>
+								<a href="#annexes" onclick="onNavClick(`#annexes-nav`)" id="annexes-nav">
+									Annexes
+								</a>
+							</li>
+						
+						
+					
+				
+			
+		</ul>
+	</div>
+
+</div>
+            
+        </div>
+    </div>
+</div>
+<transition name="fade">
+    <div id="drawer-mask" v-bind:class="{ 'single-column-drawer-mask': mounted }" v-if="isDrawerOpen" v-on:click="toggleDrawer"></div>
+</transition>
+<nav id="navBar" class="navbar sticky-top navbar-light single-column-nav-container">
+    <div id="navBackground" class="nav-background"></div>
+    <div class="container container-narrow nav-content">
+        <button id="nav_dropdown_btn" class="nav-dropdown-toggle" type="button" v-on:click="toggleDrawer">
+            <i class="material-icons">
+                menu
+            </i>
+        </button>
+        <a id="navTitle" class="navbar-brand" href="http://clubsecuesiea.github.io/">
+            ESIEA security club
+        </a>
+        
+        <button type="button" class="nav-darkmode-toggle" id="darkModeToggleButton2">
+            <i class="material-icons" id="darkModeToggleIcon2">
+                dark_mode
+            </i>
+        </button>
+        
+    </div>
+</nav>
+<div class="single-column-header-container" id="pageHead"
+     v-bind:style="{ transform: 'translateZ(0px) translateY('+.3*scrollY+'px)', opacity: 1-navOpacity }">
+    <a href="http://clubsecuesiea.github.io/">
+        <div class="single-column-header-title">ESIEA security club</div>
+        
+
+    </a>
+</div>
+
+            <div id="content">
+                <div id="streamContainer" class="stream-container">
+
+    <div class="post-list-container post-list-container-shadow">
+        <div class="post">
+            
+            
+            
+
+            <div class="post-head-wrapper-text-only"
+                
+            >
+                <div class="post-title">
+                    [TRACS 2021 - RE] Coffre
+                    
+                    <div class="post-meta">
+                        
+                        <time itemprop="datePublished">
+                            2021-12-05 00:00
+                        </time>
+                        
+
+                        
+
+                        
+                            <i class="material-icons" style="">label</i>
+                            
+                                <a href="/tags/ctf">ctf</a>
+                                &nbsp;
+                            
+                                <a href="/tags/tracs-2021">TRACS 2021</a>
+                                &nbsp;
+                            
+                                <a href="/tags/tracs">TRACS</a>
+                                &nbsp;
+                            
+                                <a href="/tags/nasm">nasm</a>
+                                &nbsp;
+                            
+                                <a href="/tags/alol">Alol</a>
+                                &nbsp;
+                            
+                                <a href="/tags/reverse">reverse</a>
+                                &nbsp;
+                            
+                                <a href="/tags/re">RE</a>
+                                &nbsp;
+                            
+                                <a href="/tags/irl">IRL</a>
+                                &nbsp;
+                            
+                                <a href="/tags/rand">rand</a>
+                                &nbsp;
+                            
+                                <a href="/tags/2021">2021</a>
+                                &nbsp;
+                            
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="post-body-wrapper">
+                
+                <div class="post-body" v-pre>
+                
+                    <h2 id="intro">Intro</h2>
+<blockquote>
+<p>Epreuve 12-3 – Coffre
+En tant que stagiaire vous avez accès aux locaux de la NSB. Vous allez collecter des informations dans les locaux. Un coffre est présent dans les locaux en salle rideau. Il appartient à Richard Cresus de la Tune. Essayez d’ouvrir ce coffre. Quel est l’IBAN contenu dans le coffre ? Format de la réponse : IBAN sans séparateur.</p>
+</blockquote>
+<p>Basically, we have to crack open an electronic safe. It&rsquo;s locked with an electromagnet and requires a pin to open, moreover it prints an id right before asking for the pin. We previously were given a link to the download page one of the safe&rsquo;s software update (<code>http://safe-locks.tracs.viarezo.fr/download</code>).</p>
+<h2 id="reversing-the-custom-libcryptoso-library">Reversing the custom libcrypto.so library</h2>
+<p>The software update comes in the from of a <code>.maj</code> archive that we extracted to get two <code>libcrypto.so</code> libraries (one for x86, the other one for arm64 v7). We checked if the files were equivalent by looking at their code structure, and we finally choose to reverse the x86 library (even though the safe probably used the arm one) because it was easier.</p>
+<p>Firstly, we looked at how the pin was checked, more specifically at the <code>libsafe_test_passcode</code> in IDA:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">_BOOL8 <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">libsafe_test_passcode</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>a1)
+{
+  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v2; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> fd; <span style="color:#75715e">// [rsp+1Ch] [rbp-64h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> buf[<span style="color:#ae81ff">36</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-60h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> s1[<span style="color:#ae81ff">40</span>]; <span style="color:#75715e">// [rsp+50h] [rbp-30h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v6; <span style="color:#75715e">// [rsp+78h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v6 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  fd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;.safe_db&#34;</span>, <span style="color:#ae81ff">0</span>);
+  <span style="color:#66d9ef">if</span> ( fd <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0LL</span>;
+  read(fd, buf, <span style="color:#ae81ff">0x24uLL</span>);
+  close(fd);
+  v2 <span style="color:#f92672">=</span> strlen(a1);
+  sha256sum(a1, v2, s1);
+  <span style="color:#66d9ef">return</span> memcmp(s1, <span style="color:#f92672">&amp;</span>buf[<span style="color:#ae81ff">4</span>], <span style="color:#ae81ff">0x20uLL</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>We assume the argument is a pointer to the pin, for which we compute its <code>sha256sum</code>. And if it is equal to <code>buf[4:0x24]</code>, it means the pin correct! So we have to understand what <code>buf[4:0x24]</code> is, which is stored in the <code>.safe_db</code> file. To do so we look at the <code>libsafe_generate_new_passcode</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">libsafe_generate_new_passcode</span>(<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>a1)
+{
+  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> v1; <span style="color:#75715e">// eax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+18h] [rbp-468h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> fd; <span style="color:#75715e">// [rsp+1Ch] [rbp-464h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> file_content[<span style="color:#ae81ff">36</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-460h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> hash_rand_buf[<span style="color:#ae81ff">32</span>]; <span style="color:#75715e">// [rsp+50h] [rbp-430h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">char</span> rand_buf[<span style="color:#ae81ff">1032</span>]; <span style="color:#75715e">// [rsp+70h] [rbp-410h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> canary; <span style="color:#75715e">// [rsp+478h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  canary <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  v1 <span style="color:#f92672">=</span> time(<span style="color:#ae81ff">0LL</span>);
+  srand(v1);
+  memset(file_content, <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">sizeof</span>(file_content));
+  <span style="color:#f92672">*</span>(_DWORD <span style="color:#f92672">*</span>)file_content <span style="color:#f92672">=</span> rand();
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1023</span>; <span style="color:#f92672">++</span>i )
+    rand_buf[i] <span style="color:#f92672">=</span> rand();
+  sha256sum(rand_buf, <span style="color:#ae81ff">1024LL</span>, hash_rand_buf);
+  _build_passcode((<span style="color:#66d9ef">__int64</span>)hash_rand_buf, <span style="color:#ae81ff">32LL</span>, (<span style="color:#66d9ef">__int64</span>)a1, <span style="color:#ae81ff">8LL</span>);
+  sha256sum(a1, <span style="color:#ae81ff">8LL</span>, <span style="color:#f92672">&amp;</span>file_content[<span style="color:#ae81ff">4</span>]);
+  fd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;.safe_db&#34;</span>, <span style="color:#ae81ff">577</span>);
+  <span style="color:#66d9ef">if</span> ( fd <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1LL</span>;
+  write(fd, file_content, <span style="color:#ae81ff">0x24uLL</span>);
+  close(fd);
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0LL</span>;
+}
+</code></pre></div><p>The function is very basic:</p>
+<ul>
+<li>It takes as argument a pointer to the buffer to cipher for which we compute the hash to fill out the <code>.safe_db</code> file.</li>
+<li>It initializes the PRNG with <code>time(NULL)</code> passed as an argument to<code>srand</code>. It then creates an array of <code>1024</code> random bytes with the use of <code>rand</code>.</li>
+<li>Then, this array is hashed with <code>sha256sum</code> and its hash is given to the <code>_build_passcode</code> function. The result is stored in the <code>a1</code> argument.</li>
+<li>The argument is hashed again and in the target file we write at <code>file_content[:4]</code> the first <code>rand</code> value and at <code>file_content[4:0x24]</code> the hash of the previous ciphered buffer.</li>
+</ul>
+<p>The core of the encryption algorithm is in the <code>build_passcode</code> function:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">build_passcode</span>(
+        <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>hash_rand_buf,
+        <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> length_hash,
+        <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int8</span> <span style="color:#f92672">*</span>out,
+        <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> opaque_8)
+{
+  <span style="color:#66d9ef">__int64</span> result; <span style="color:#75715e">// rax
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> i; <span style="color:#75715e">// [rsp+20h] [rbp-10h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">int</span> length_base; <span style="color:#75715e">// [rsp+24h] [rbp-Ch]
+</span><span style="color:#75715e"></span>
+  lenght_base <span style="color:#f92672">=</span> strlen(<span style="color:#e6db74">&#34;1234567890ABCD&#34;</span>);
+  <span style="color:#66d9ef">for</span> ( i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; ; <span style="color:#f92672">++</span>i )
+  {
+    result <span style="color:#f92672">=</span> i;
+    <span style="color:#66d9ef">if</span> ( i <span style="color:#f92672">&gt;=</span> opaque_8 )
+      <span style="color:#66d9ef">break</span>;
+    out[i] <span style="color:#f92672">=</span> base[hash_rand_buf[i <span style="color:#f92672">%</span> length_hash] <span style="color:#f92672">%</span> length_base];
+  }
+  <span style="color:#66d9ef">return</span> result;
+}
+</code></pre></div><p>That&rsquo;s just basically filling out the <code>out</code> buffer with <code>base[hash_rand_buf[i % length_hash] % lenght_base]</code>.</p>
+<p>Now we have a good understanding of the encryption algorithm, we can take a look at what exactly the <code>id</code> printed right before the pin input is. The function that generates the <code>id</code> is <code>libsafe_get_userid</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">__int64</span> <span style="color:#66d9ef">__fastcall</span> <span style="color:#a6e22e">libsafe_get_userid</span>(_DWORD <span style="color:#f92672">*</span>id)
+{
+  <span style="color:#66d9ef">int</span> fd; <span style="color:#75715e">// [rsp+1Ch] [rbp-34h]
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">int</span> buf[<span style="color:#ae81ff">10</span>]; <span style="color:#75715e">// [rsp+20h] [rbp-30h] BYREF
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">__int64</span> v4; <span style="color:#75715e">// [rsp+48h] [rbp-8h]
+</span><span style="color:#75715e"></span>
+  v4 <span style="color:#f92672">=</span> __readfsqword(<span style="color:#ae81ff">0x28u</span>);
+  fd <span style="color:#f92672">=</span> open(<span style="color:#e6db74">&#34;.safe_db&#34;</span>, <span style="color:#ae81ff">0</span>);
+  <span style="color:#66d9ef">if</span> ( fd <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> )
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1LL</span>;
+  read(fd, buf, <span style="color:#ae81ff">0x24uLL</span>);
+  close(fd);
+  <span style="color:#f92672">*</span>id <span style="color:#f92672">=</span> buf[<span style="color:#ae81ff">0</span>];
+  <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0LL</span>;
+}
+</code></pre></div><p>The function is very basic, it opens the <code>.safe_db</code> file and initializes the <code>id</code> to the first four bytes of the file which is the first value of rand as seen in the previous functions.</p>
+<h2 id="cracking-the-seed">Cracking the seed</h2>
+<p>To recover the pin, we have to know what hash the hash of the pin will be compared to. To do so, we have to recover the random buffer, hash it, give it to the &ldquo;core&rdquo; encryption layer and hash what it outputs. That will be the final hash which will be compared to the hash of the pin we send. The main part of the challenge is so to recover the <code>rand</code> values, more specifically the seed given to <code>srand</code> to initialize the PRNG. We know the seed in the program is <code>time(NULL)</code>. Which means that this is a timestamp that can be bruteforced in a reasonable amount of time (the 2020 edition of the CTF was cancelled because of COVID so we took as range the date of the software update until today). The bruteforce is very fast because given we know the <code>id</code> which is the value for the first call to <code>rand</code>, we have just to ensure the first value of <code>rand</code> for the seed we bruteforce is equal to the <code>id</code> value.</p>
+<p>Which gives:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> tqdm <span style="color:#f92672">import</span> tqdm
+<span style="color:#f92672">import</span> hashlib
+<span style="color:#f92672">from</span> ctypes <span style="color:#f92672">import</span> CDLL
+libc <span style="color:#f92672">=</span> CDLL(<span style="color:#e6db74">&#34;libc.so.6&#34;</span>)
+
+h <span style="color:#f92672">=</span> <span style="color:#66d9ef">lambda</span> x: hashlib<span style="color:#f92672">.</span>sha256(x)<span style="color:#f92672">.</span>digest()
+
+START_TIME   <span style="color:#f92672">=</span> <span style="color:#ae81ff">1605052800</span> <span style="color:#75715e"># 2020-11-11 12:00:00 AM -&gt; known date for the software update</span>
+CURRENT_TIME <span style="color:#f92672">=</span> <span style="color:#ae81ff">1638633346</span> <span style="color:#75715e"># 2021-12-04  3:55:46 PM -&gt; current time</span>
+PINCODE      <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x4b2e2a1c</span>
+
+CHARSET      <span style="color:#f92672">=</span> <span style="color:#e6db74">b</span><span style="color:#e6db74">&#34;1234567890ABCD&#34;</span>
+CHARLEN      <span style="color:#f92672">=</span> len(CHARSET)
+
+<span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> tqdm(range(CURRENT_TIME <span style="color:#f92672">-</span> START_TIME)):
+    t <span style="color:#f92672">+=</span> START_TIME
+
+    libc<span style="color:#f92672">.</span>srand(t)
+    
+    <span style="color:#66d9ef">if</span> PINCODE <span style="color:#f92672">==</span> libc<span style="color:#f92672">.</span>rand():
+
+        v8 <span style="color:#f92672">=</span> [libc<span style="color:#f92672">.</span>rand() <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">0xff</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1024</span>)]
+        v8 <span style="color:#f92672">=</span> h(bytearray(v8))
+
+        v6 <span style="color:#f92672">=</span> [CHARSET[v8[i <span style="color:#f92672">%</span> <span style="color:#ae81ff">32</span>] <span style="color:#f92672">%</span> CHARLEN] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">8</span>)]
+        v6 <span style="color:#f92672">=</span> h(bytearray(v6))
+
+        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Timestamp: </span><span style="color:#e6db74">{</span>t<span style="color:#e6db74">=}</span><span style="color:#e6db74">, hash: </span><span style="color:#e6db74">{</span>v6<span style="color:#f92672">.</span>hex()<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</code></pre></div><p>And when we found the right seed, we just have to generate, hash, cipher and hash again the right random buffer to get the right hash to which the hash of the pin will be compared to.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Shell" data-lang="Shell">$ python3 solve.py 
+ 94%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████▏       | 31691218/33580546 <span style="color:#f92672">[</span>01:29&lt;00:05, 351593.81it/s<span style="color:#f92672">]</span>
+Timestamp: t<span style="color:#f92672">=</span>1636749762, hash: 88c71c0cc0950acfe3835a009f8931cee0f12ab7410538f96d058184a4c90e11
+100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 33580546/33580546 <span style="color:#f92672">[</span>01:34&lt;00:00, 356533.87it/s<span style="color:#f92672">]</span>
+</code></pre></div><h2 id="hashcat--profit">Hashcat + PROFIT</h2>
+<p>Now we know the final hash to which the hash of the pin is compared to, we can just run a mask attack using hashcat with a mask of 8 hexadecimal characters in uppercase (we tried for every length up to the right size: 8).</p>
+<pre tabindex="0"><code>$ hashcat -a 3 -m 1400 pincode.hash ?H?H?H?H?H?H?H?H
+[skip]
+88c71c0cc0950acfe3835a009f8931cee0f12ab7410538f96d058184a4c90e11:4233246D
+
+Session..........: hashcat
+Status...........: Cracked
+Hash.Type........: SHA2-256
+Hash.Target......: 88c71c0cc0950acfe3835a009f8931cee0f12ab7410538f96d0...c90e11
+Time.Started.....: Sat Dec  5 16:52:37 2021 (7 mins, 22 secs)
+Time.Estimated...: Sat Dec  5 16:59:59 2021 (0 secs)
+Guess.Mask.......: ?H?H?H?H?H?H?H?H [8]
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  7884.8 kH/s (7.30ms) @ Accel:256 Loops:64 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests, 1/1 (100.00%) Salts
+Progress.........: 3342925824/4294967296 (77.83%)
+Rejected.........: 0/3342925824 (0.00%)
+Restore.Point....: 816128/1048576 (77.83%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-64 Iteration:0-64
+Candidates.#1....: 1234515D -&gt; EBCF585D
+</code></pre><p>The challenge was pretty funny because of the IRL part, and because we solved it together (<a href="https://github.com/n4sm">nasm</a> and <a href="https://twitter.com/yarienkiva">Alol</a>).</p>
+<p>Authors: <a href="https://github.com/n4sm">nasm</a> and <a href="https://twitter.com/yarienkiva">Alol</a>.</p>
+<h2 id="annexes">Annexes</h2>
+<p><img src="https://ret2school.github.io/images/coffre.jpg" alt="The safe"></p>
+
+                    
+                    <HR width="100%" id="EOF">
+		    <p style="color:#777;">Last modified on 2021-12-05</p>
+                    
+                </div>
+            </div>
+            
+            
+            <nav class="post-pagination">
+
+                
+                <a class="newer-posts" href="/posts/onceandforall/">
+			Next<br>[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all
+                </a>
+                
+                
+                
+                <a class="older-posts" href="/posts/about/">
+			Previous<br>About us
+                </a>
+                
+            </nav>
+            <div class="post-comment-wrapper">
+                
+
+
+<div id="gitalk-container"></div>
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+                    </div>
+            </div><div id="single-column-footer">
+Hugo Theme <a href="https://github.com/amazingrise/hugo-theme-diary">Diary</a> by <a href="https://risehere.net/">Rise</a>
+<br>
+Ported from <a href="https://mak1t0.cc/" target="_blank" rel="noreferrer noopener">Makito</a>'s <a href="https://github.com/SumiMakito/hexo-theme-journal/" target="_blank" rel="noreferrer noopener">Journal.</a> <br>
+<br>
+
+&copy;
+	
+	Beerware shit
+	
+</div>
+            </div>
+    
+    <script src="/js/journal.js"></script>
+    </body>
+</html>
