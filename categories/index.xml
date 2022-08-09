@@ -2,36 +2,36 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on ESIEA security club</title>
-    <link>https://clubsecuesiea.github.io/categories/</link>
+    <link>https://clubsecu-esiea.github.io/categories/</link>
     <description>Recent content in Categories on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Beerware shit</copyright>
-    <lastBuildDate>Mon, 08 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://clubsecuesiea.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://clubsecu-esiea.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>pwn</title>
-      <link>https://clubsecuesiea.github.io/categories/pwn/</link>
+      <link>https://clubsecu-esiea.github.io/categories/pwn/</link>
       <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/categories/pwn/</guid>
+      <guid>https://clubsecu-esiea.github.io/categories/pwn/</guid>
       <description></description>
     </item>
     
     <item>
       <title>crypto</title>
-      <link>https://clubsecuesiea.github.io/categories/crypto/</link>
+      <link>https://clubsecu-esiea.github.io/categories/crypto/</link>
       <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/categories/crypto/</guid>
+      <guid>https://clubsecu-esiea.github.io/categories/crypto/</guid>
       <description></description>
     </item>
     
     <item>
       <title>misc</title>
-      <link>https://clubsecuesiea.github.io/categories/misc/</link>
+      <link>https://clubsecu-esiea.github.io/categories/misc/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/categories/misc/</guid>
+      <guid>https://clubsecu-esiea.github.io/categories/misc/</guid>
       <description></description>
     </item>
     

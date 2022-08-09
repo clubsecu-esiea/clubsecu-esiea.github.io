@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>pwn on ESIEA security club</title>
-    <link>https://clubsecuesiea.github.io/categories/pwn/</link>
+    <link>https://clubsecu-esiea.github.io/categories/pwn/</link>
     <description>Recent content in pwn on ESIEA security club</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Beerware shit</copyright>
-    <lastBuildDate>Mon, 08 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://clubsecuesiea.github.io/categories/pwn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://clubsecu-esiea.github.io/categories/pwn/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[corCTF 2022 - pwn] zigzag</title>
-      <link>https://clubsecuesiea.github.io/posts/zigzag/</link>
+      <link>https://clubsecu-esiea.github.io/posts/zigzag/</link>
       <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/posts/zigzag/</guid>
+      <guid>https://clubsecu-esiea.github.io/posts/zigzag/</guid>
       <description>Introduction zigzag is a zig heap challenge I did during the corCTF 2022 event. It was pretty exotic given we have to pwn a heap like challenge written in zig. It is not using the C allocator but instead it uses the GeneralPurposeAllocator, which makes the challenge even more interesting. Find the tasks here.
 TL; DR  Understanding zig GeneralPurposeAllocator internals Hiijack the BucketHeader of a given bucket to get a write what were / read what where primitive.</description>
     </item>
     
     <item>
       <title>[corCTF 2022 - pwn] cshell2</title>
-      <link>https://clubsecuesiea.github.io/posts/cshell2/</link>
+      <link>https://clubsecu-esiea.github.io/posts/cshell2/</link>
       <pubDate>Sun, 07 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/posts/cshell2/</guid>
+      <guid>https://clubsecu-esiea.github.io/posts/cshell2/</guid>
       <description>Introduction cshell2 is a heap challenge I did during the corCTF 2022 event. It was pretty classic so I will not describe a lot. If you begin with heap challenges, I advice you to read previous heap writeup.
 TL; DR  Fill tcache. Heap overflow in edit on the bio field which allows to leak the address of the unsortedbin. Leak heap and defeat safe-linking to get an arbitrary write through tcache poisoning.</description>
     </item>
     
     <item>
       <title>[HackTheBox Cyber Apocalypse 2022 - pwn] Once and for all</title>
-      <link>https://clubsecuesiea.github.io/posts/onceandforall/</link>
+      <link>https://clubsecu-esiea.github.io/posts/onceandforall/</link>
       <pubDate>Thu, 19 May 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://clubsecuesiea.github.io/posts/onceandforall/</guid>
+      <guid>https://clubsecu-esiea.github.io/posts/onceandforall/</guid>
       <description>Once for all is a heap challenge I did during the HackTheBox Cyber Apocalypse event. This is a classic unsorted bin attack plus a FSOP on stdin. Find the tasks and the final exploit here and here.
 Reverse engineering All the snippets of pseudo-code are issued by IDA freeware:
 int __cdecl main(int argc, const char **argv, const char **envp) { int v4; // [rsp+18h] [rbp-8h] BYREF  int i; // [rsp+1Ch] [rbp-4h]  for ( i = 0; i &amp;lt;= 49; ++i ) { puts(s); printf(&amp;amp;unk_1310); __isoc99_scanf(&amp;amp;unk_13C8, &amp;amp;v4); puts(s); switch ( v4 ) { case 1: small_alloc(s); break; case 2: fix(s); break; case 3: examine(s); break; case 4: savebig(s); break; case 5: exit(0); default: puts(&amp;#34;[-] Invalid choice!</description>
